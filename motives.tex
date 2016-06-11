@@ -1,0 +1,1191 @@
+\documentclass[a4paper]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{fullpage}
+\usepackage{rotating}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage[unicode,colorlinks=true,pagebackref=true]{hyperref}
+\usepackage[all]{xy}
+\usepackage{microtype}
+\usepackage{amsthm}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{through}
+
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.1] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+\DeclareMathOperator{\PGSp}{PGSp}
+\DeclareMathOperator{\PGO}{PGO}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\Cent}{Cent}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\GW}{GW}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Br}{Br}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\PGL}{PGL}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\fchar}{char}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\SB}{SB}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Spin}{Spin}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Nrd}{Nrd}
+
+%\DeclareFontFamily{OT1}{pzc}{}
+%\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.2] pzcmi7t}{}
+%\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\newcommand{\categ}{\mathpzc}
+
+\renewcommand{\O}{\mathrm{O}}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\ph}{\varphi}
+\renewcommand{\emptyset}{\varnothing}
+
+\newcommand{\term}{\textbf}
+\newcommand{\rdfn}{=\mathrel{\mathop:}}
+\newcommand{\dfn}{\mathrel{\mathop:}=}
+\newcommand{\isom}{\simeq}
+
+\newtheorem{theorem}{Теорема}[subsection]
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{proposition}[theorem]{Утверждение}
+
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Пример}
+\newtheorem{fact}[theorem]{Факт}
+
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\lAngle}{\langle\!\langle}
+\newcommand{\rAngle}{\rangle\!\rangle}
+\newcommand{\trleq}{\trianglelefteq}
+\newcommand{\ol}{\overline}
+
+\newcommand{\TBW}{\textbf{TBW}}
+
+\begin{document}
+
+\author{Иван Панин\and Виктор Петров}
+\title{Мотивы Воеводского и арифметика линейных алгебраических групп
+\footnote{Конспект лекций семинара весны 2012 года; предварительная
+версия. Автор \TeX-версии~--- Александр Лузгарев.
+Основано на конспекте Алексея Бешенова первых двух лекций.}}
+\date{2012}
+\maketitle
+
+\section{Введение}
+
+\subsection{Планы}
+
+% 13.02.2012
+
+Работа Панина и Пименова о квадратичных формах.
+
+Простая формулировка. {\it Пусть $K = \mathbb{C} (z_1,\ldots,z_n)$ и
+  $R \dfn \{ \frac{g(z)}{h(z)} \mid h(0) \ne 0 \} \subset K$~---
+  регулярные функции в окрестности $0$. Пусть $u \in
+  R^\times$. Рассмотрим уравнение
+
+\[ T_1^2 + \cdots + T_k^2 = u. \]
+
+\noindent (Предполагаем $k \ge 2$.) Если уравнение имеет решение в
+$K$, то оно имеет решение и в $R$.}
+
+\vspace{2em}
+
+Интересующая нас задача: классифицировать простые алгебраические
+группы над произвольным полем (или локальным регулярным кольцом). В
+каком смысле~--- мы объясним. Что такое простые алгебраические
+группы~--- это обсуждается в записках спецкурса. 
+
+\vspace{2em}
+
+Как все знают, над алгебраически замкнутыми полями классификацию
+простых алгебраических групп дают диаграммы Дынкина. Среди них~---
+четыре бесконечные серии, которым соответствуют следующие
+присоединенные группы:
+
+\begin{itemize}
+\item $A_n$~--- $\PGL_{n+1}$.
+
+\item $B_n$~--- $\SO_{2n+1}$.
+
+\item $C_n$~--- $\PGSp_{2n}$.
+
+\item $D_n$~--- $\SO_{2n}$.
+\end{itemize}
+
+Исключительные группы: $E_6$, $E_7$, $E_8$, $F_4$, $G_2$.
+
+Имеется точная последовательность
+
+\[ 1 \to \mu_n \to \SL_n \to \PGL_n \to 1. \]
+
+<<Теорема типа Спрингера>>: \emph{пусть $G$ и $G^\prime$~--- группы типа $G_2$ над полем $K$. Пусть расширение $[L : K]$ нечетное. Тогда если $G_L \isom G_L^\prime$, то $G \isom G^\prime$.}
+
+С точностью до каких-то тонкостей, имеем
+
+\[ H^1 (K, G_0^{ad}) \approx \{\text{присоед. простые алг. группы над }K\text{ того же типа, что и }G_0\}. \]
+
+Это соответствие функториально в том смысле, что расширение полей $L/K$ индуцирует
+морфизм $H^1 (K,G^{ad}) \to H^1 (L,G^{ad})$.
+
+Наша высокая цель~--- построить функтор $F$, сопоставляющий полям
+абелевы группы с гомоморфизмом следа, так что конечное расширение
+$[L:K]$ давало бы морфизм $F(L) \to F(K)$ и естественное
+преобразование
+
+\[ H^1 (K,G_0^{ad}) \to F(K). \]
+
+Например, для $G_0 = \PGL_2 = \Aut (M_2)$ ответ такой:
+
+\[ F\colon K \rightsquigarrow K_2^M (K) / 2, \]
+
+\noindent где $K_2^M (K) = I^2(K) / I^3 (K)$.
+
+\subsection{Теорема Меркурьева--Суслина и гипотеза Блоха--Като}
+
+Пусть $A$~--- центральная простая алгебра над полем $K$ (более общее
+понятие~--- \term{алгебра Азумайи}, \term{Azumaya algebra}). Ей
+соответствует элемент $[A]$ в группе Брауэра $\Br (K)$.
+
+\begin{itemize}
+\item \textbf{Теорема Меркурьева} (1981)~--- изоморфизм ${}_2 \Br(K)
+  \isom K_2^M / 2$, а также следствие про $[A] \in {}_2 \Br(K)$.
+
+[\url{http://www.mathunion.org/ICM/ICM1986.1/Main/icm1986.1.0389.0393.ocr.pdf}]
+
+[\url{http://www.math.ethz.ch/~knus/sridharan/merkurjev84.pdf}]
+
+\item \textbf{Теорема Меркурьева--Суслина} (1982)~--- изоморфизм ${}_p
+  \Br(K) \isom K_2^M / p$.
+
+[L.H. Rowen, Ring theory, Vol. 2, \S 7.2]
+
+\item \textbf{Гипотеза Блоха--Като} (<<norm residue isomorphism
+  theorem>>)~--- $K_n^M/p (-) \isom H^n_\text{ét} (-, \mu_p^{\otimes
+    n})$.
+
+[\url{http://arxiv.org/abs/0805.4430}]
+\end{itemize}
+
+\subsection{Кольцо Гротендика--Витта}
+
+$H^1 (K, \O_n)$~--- это классы изометрии невырожденных квадратичных
+форм ранга $n$.
+
+Имеется функтор в кольцо Витта
+\[ H^1 (K, \O_n) \to W(K), \quad f \mapsto [f]. \]
+
+Разберемся, что такое \term{кольцо Витта} $W(K)$. Его образующие~---
+классы изометрии квадратичных форм над $K$, а соотношения выглядят так:
+\begin{gather*}
+[f] + [g] = [f \perp g],\\
+[f]\cdot [g] = [f\otimes g],\\
+\mathbb{H} = 0,
+\end{gather*}
+где $\mathbb{H}$~--- класс изометрии двумерной квадратичной формы $f(x,y)=xy$, а
+$f \perp g$ имеет следующий смысл. Если $f$~--- квадратичная форма на
+$V$, а $g$~--- квадратичная форма на $W$, то на $V\oplus W$ задается
+квадратичная форма $(f\perp g) (u\oplus v) \dfn f(u) + g(v)$.
+
+Имеется корректно определенный гомоморфизм
+\begin{eqnarray*}
+\rk\colon W(K) & \to & \mathbb{Z}/2,\\
+{}[f] & \mapsto & \rk f \mod 2.
+\end{eqnarray*}
+$I \dfn \ker \rk$ называется \term{фундаментальным идеалом}.
+
+\term{Кольцо Гротендика--Витта} $GW (K)$ определяется следующим
+образом. В нем те же образующие, но  нет условия $[xy] = 0$. Сначала
+определяется сложение
+и умножение, делающее $GW (K)$ полукольцом:
+\begin{gather*}
+[f] + [g] = [f \perp g],\\
+[f]\cdot [g] = [f\otimes g].
+\end{gather*}
+Потом мы берем группу Гротендика и получаем кольцо.
+
+\subsection{$\mathbb{A}^1$-гомотопии и гипотеза Мореля}
+
+[\url{http://mathunion.org/ICM/ICM1998.1/Main/00/Voevodsky.MAN.ocr.pdf}]
+
+$\mathbb{A}^1$-гомотопическая категория пространств с отмеченными
+точками над $K$.
+
+Сфера $S^0 = \{ +, \bullet \}$ состоит из двух точек, из которых
+$\bullet$~--- отмеченная.
+
+Теорема Мореля (1999?) состоит в вычислении
+
+\[ \pi_0^{stab} (S^0) \isom \GW (K) \]
+
+Fabien Morel, On The Motivic $\pi_0$ of the Sphere Spectrum.\\
+\url{http://dx.doi.org/10.1007/978-94-007-0948-5_7}
+
+Желаемый функтор $F$ мог бы давать $H^1 (K,G) \to H_0^{\mathbb{A}^1} (B^\text{èt} G)$.
+
+Аналог этого в топологии следующий. Пусть задано главное
+$G$-расслоение $\mathfrak{g} \to X$ для клеточного пространства
+$X$. Сопоставим ему отображение в классифицирующее пространство $X
+\xrightarrow{f_\mathfrak{g}} BG$.
+
+Существует соответствие между множеством классов изоморфности главных
+$G$-расслоений над $X$ и гомотопическими классами $[X,BG]$.
+
+Имеется инъекция
+
+\[ [X,BG] = \pi_0 (\Map (X,BG)) \hookrightarrow H_0 (\Map (X,BG)). \]
+
+Гипотеза Мореля заключается в том, что в алгебраической ситуации тоже получается инъекция
+
+\[ [\Spec K, B^\text{èt} G] = \pi_0^{\mathbb{A}^1} (B^\text{èt} G)
+\hookrightarrow H_0^{\mathbb{A}^1} (B^\text{èt} G). \]
+
+\subsection{Формы Пфистера}
+
+Рассмотрим фильтрацию на кольце Витта
+
+\[ W(K) \supset I \supset I^2 \supset I^3 \supset \cdots \]
+
+\begin{theorem}
+$\bigcap_n I^n = \{0\}$.
+\end{theorem}
+
+Мы уже знаем, что $W(K) / I = \mathbb{Z}/2$.
+$I/I^2$ как абелева группа порождается элементами вида $\lAngle a\rAngle \dfn x^2 - a\,y^2$ для некоторого $a\in K^\times$.
+Более общо, $I^n/I^{n+1}$ порождается тензорными произведениями элементов
+\[ \lAngle a_1, \ldots, a_n\rAngle = \lAngle a_1\rAngle\otimes\cdots\otimes\lAngle a_n\rAngle. \]
+$\lAngle a_1, \ldots, a_n\rAngle$ называется \term{$n$-кратной формой Пфистера}.
+
+\begin{example}
+При $n = 1$ имеем $a \in K^*/(K^*)^2$; $K (\sqrt{a})$~--- квадратичное расширение.
+
+При $n = 2$ символ $\lAngle a,b\rAngle$ есть норма алгебры кватернионов
+$H = (a,b)$ над $K$.
+
+При $n = 3$ символ $\lAngle a,b,c\rAngle$ есть норма алгебры октонионов
+$(a,b,c)$ над $K$ (что соответствует группам типа $G_2$ над $K$).
+\end{example}
+
+\begin{theorem}[Арасон]
+Если $[q] \in I^n$, то $\rk q \ge 2^n$.
+Если при этом $\rk q = 2^n$, то $q \isom \alpha \cdot \lAngle
+a_1,\ldots,a_n \rAngle$, где $\alpha \in K^\times$.
+В частности, $\bigcap I^n = 0$.
+\end{theorem}
+
+\begin{itemize}
+\item $e_0 (q) \dfn \rk q \mod 2$.
+
+\item Если $e_0 = 0$, то $[q] \in I$. Определим $e_1 (q) \dfn [\![q]\!] \in I/I^2$. Этому соответствует $\lAngle a\rAngle$, где $a$~--- дискриминант $q$ (с точностью до знака?).
+
+\item Если $e_1 = 0$, то $e_2 (q) \dfn [\![ q ]\!] \in I^2/I^3$.
+Форме $q$ можно сопоставить $C_0^+ (q)$, четную положительную часть алгебры
+Клиффорда, это будет центральная простая алгебра. Имеем $[C_0^+ (q)]
+\in {}_2 \Br (K)$. По теореме Меркурьева, это сумма
+\[ [(a_1,b_1)]\,[(a_2,b_2)]\cdots [(a_k,b_k)] \]
+
+\[ \lAngle a_1,b_1\rAngle + \lAngle a_2,b_2\rAngle + \cdots +\lAngle a_k,b_k\rAngle. \]
+
+\item Если $e_2 (q) = 0$, то можно определить $e_3 (q)$~---
+  \term{инвариант Арасона}.
+\end{itemize}
+
+\subsection{Торсоры}
+
+Пусть $G$~--- простая алгебраическая группа над $K$.
+
+\term{$G$-торсором} называется многообразие $X$ над $K$, такое что
+\begin{itemize}
+\item определено действие $G\times X\to X$;
+
+\item над алгебраическим замыканием $\overline{K}$ имеется изоморфизм
+  $X_{\overline{K}} \isom G_{\overline{K}}$ (как многообразий с
+  $G$-действием).
+\end{itemize}
+
+Раньше торсоры назывались <<главными однородными пространствами>>
+(principal homogeneous space).
+
+\begin{example}
+Действие $G$ сдвигами на себе дает \term{тривиальный $G$-торсор}.
+\end{example}
+
+По определению, $H^1 (K;G)$ есть множество классов изоморфности
+$G$-торсоров с отмеченной точкой (тривиальный $G$-торсор).
+
+\begin{example}
+Зафиксируем $a\in K$.
+Для каждой $K$-алгебры $R$ положим
+$\mu_2(R) = \{ x\in R\mid x^2 = 1 \}$, $X(R) \dfn \{ y\in R\mid y^2 = a\}$.
+Получаем схемы $\mu_2$ и $X$, причем
+$\mu_2$ действует на $X$ умножением:
+если $y^2 = a$, $x^2 = 1$, то $(x\,y)^2 = a$.
+\end{example}
+
+$X$~--- тривиальный $G$-торсор iff у него есть рациональная точка: $X
+(K) \ne \emptyset$.
+
+Если $G$~--- абелева группа, то на торсорах имеется сложение. При этом
+$H^1 (K,\mu_2) \isom K^* / (K^*)^2$ как абелева группа. И вообще $H^1
+(K,\mu_n) \isom K^* / (K^*)^n$.
+
+\subsection{Скрученные формы}
+
+Напомним, что $\O_{2n} = \Aut (q_{split})$, где $q_{split} = x_1\,y_1 + \cdots +
+x_n\,y_n$~--- \term{расщепимая форма} (от переменных $x_1,\dots,x_n,y_1,\dots,y_n$.
+
+$H^1 (K, \O_{2n})$ можно отождествить с множеством классов изометрии
+невырожденных квадратичных форм ранга $2n$. 
+Действительно, пусть $q$~--- квадратичная форма,
+Мы утверждаем, что $\Iso (q_{split},
+q)$ есть искомый торсор: на нем действует $\O_{2n}$.
+Здесь $\Iso(\ph,\psi)$ обозначает функтор изоморфизмов между квадратичными
+формами $\ph$ и $\psi$; более точно,
+$\Iso(\ph,\psi)(R) = \{f\colon\ph_R\to\psi_R\mid\mbox{$f$~--- изоморфизм}\}$.
+Над алгебраически
+замкнутым полем $q$ изоморфна $q_{split}$, и получается $\Iso
+(q_{split},q_{split})=\Aut (q_{split})=\O_{2n}$.
+
+Пусть $A$~--- некоторая алгебраическая структура над полем $K$
+(например, квадратичное пространство, конечномерная ассоциативная
+алгебра, конечномерная неассоциативная алгебра). Тогда
+\term{скрученная форма $A^\prime$} для $A$ есть такая структура над
+$K$, что при переходе к алгебраическому замыканию
+$A^\prime_{\overline{K}} \isom A_{\overline{K}}$.
+
+\noindent\textbf{Теорема}. $H^1 (K, \Aut(A))$ есть множество классов
+изоморфности скрученных форм $A$ над $K$.
+
+Изоморфизм такой:
+\[ A' \xmapsto{\sim} \Iso (A,A^\prime). \]
+На $\Iso (A,A^\prime)$ есть структура алгебраического многообразия.
+
+\vspace{2em}
+
+\noindent\textbf{Замечание}. Пусть $X$~--- проективное многообразие
+над $K$. Теорема (Гротендик): \emph{функтор $U \mapsto \Aut_U (X\times
+  U)$ представим в схемах}; то есть, существует схема $R$ такая, что
+$\Aut_U(X\times U)$ естественно изоморфно $\Hom(U,R)$.
+
+\vspace{2em}
+
+Контрпример: $\Aut (\mathbb{A}^n)$ не конечномерно.
+
+Пример: $A \dfn M_n (K)$. $\Aut (A) = \PGL_n$.\\
+$H^1 (K, M_n(K))$~--- это скрученные формы $M_n (K)$, то есть
+центральные простые алгебры размерности $n^2$, взятые с точностью до
+изоморфизма.
+
+$\Aut (\mathbb{P}^{n-1}) = \PGL_n = \GL_n / \mathbb{G}_m$.
+
+Автоморфизмы сохраняют ранг.
+
+$H^1 (K, \PGL_n)$ есть множество скрученных форм $\mathbb{P}^{n-1}$
+над $K$ = \term{многообразия Севери--Брауэра}.
+
+\[ A \mapsto \SB (A) = \{ \text{левые идеалы $I\trleq A$}\mid
+\dim_K(I)=n \} \]
+
+Пример при $n=2$: кватернионы $A = (a,b)$.
+
+$\beta\,u + \gamma\,v + \delta\,u\,v$. Имеем векторное пространство
+$u,v,uv$. Условие $\{ \text{норма} = 0 \}$ задает проективное
+подмногообразие в $\mathbb{P}^2$.
+
+$x^2 - a\,y^2 - b\,z^2 = 0$~--- коника.
+
+\begin{eqnarray*}
+\PGL_2 & \isom & \SO_3, \\
+\{\text{кватернионы}\} & \isom & \{\text{формы ранга }3\text{ с
+  трив. дискриминантом}\}.
+\end{eqnarray*}
+
+\subsection{Точные последовательности алгебраических групп}
+
+Точность последовательности алгебраических групп над $K$
+
+\[ 1 \to C \to H \to G \to 1 \]
+
+\noindent означает следующее:
+
+\begin{enumerate}
+\item $C$~--- алгебраическая подгруппа в $H$.
+
+\item После расширения скаляров $H (\overline{K})\to G (\overline{K})$
+  является сюръекцией
+  \emph{над алгебраическим замыканием поля $K$}.
+
+\item $C = \ker (H\to G)$, $C(R) = \ker (H(R) \to G(R))$.
+\end{enumerate}
+
+\begin{example}
+Следующая последовательность алгебраических групп точна в указанном смысле:
+
+\[ 1 \to \mu_2 \to \mathbb{G}_m \to \mathbb{G}_m \to 1, \]
+
+\noindent где $\mathbb{G}_m (K) \dfn \{ (x,y)\in K^2 \mid x\,y = 1 \}$, и
+отображение $\mathbb{G}_m \to \mathbb{G}_m$ есть $x \mapsto x^2$ (это
+сюръекция над алгебраическим замыканием).
+\end{example}
+
+\begin{example}
+Следующая последовательность точна:
+
+\[ \mu_2 (K) \to K^\times \to K^\times \to H^1 (K,\mu_2) \to H^1
+(K,\mathbb{G}_m) \to H^1 (K,\mathbb{G}_m). \]
+\end{example}
+
+\noindent (Отображение $K^\times \to K^\times$ есть $x \mapsto x^2$.)
+
+\begin{theorem}[Теорема Гильберта 90]
+
+\begin{gather*}
+H^1 (K,\mathbb{G}_m) = \{\bullet\},\\
+H^1 (K,\GL_n) = \{\bullet\}.
+\end{gather*}
+\end{theorem}
+
+Из точности последовательности выше и теоремы 90 получается
+
+\[ H^1 (K,\mu_2) \isom K^\times / (K^\times)^2. \]
+
+\begin{example}
+Точная последовательность
+\[ 1 \to \SL_n \to \GL_n \xrightarrow{\det} \mathbb{G}_m \to 1. \]
+приводит к последовательности
+\[ \GL_n (K) \xrightarrow{\det} \mathbb{G}_m (K) \to H^1 (K,\SL_n) \to H^1 (K,\GL_n). \]
+
+Здесь $H^1 (K,\SL_n) = \{\bullet\}$ и $H^1 (K,\GL_n) = \{\bullet\}$.
+\end{example}
+
+\begin{example}
+\[ 1 \to \mu_n \to \SL_n \to \PGL_n \to 1. \]
+
+\[ \mu_n (K) \to \SL_n (K) \to \PGL_n (K) \to K^\times / (K^\times)^2 \to \{\bullet\} \to H^1 (K,\PGL_n). \]
+
+\[ 1 \to \mathbb{G}_m \to \GL_n \to \PGL_n \to 1. \]
+\end{example}
+
+\begin{example}
+\begin{eqnarray*}
+\SL_n & \to & \PGL_n,\\
+g & \mapsto & (x \mapsto g\,x\,g^{-1}) \in \Aut (M_n).
+\end{eqnarray*}
+
+Это сюръекция алгебраических групп, но не сюръекция на точках.
+
+\[ 1 \to \mu_n \to \SL_n \to \PGL_n \to 1. \]
+\end{example}
+
+\begin{theorem}
+Если имеется точная последовательность $1 \to C \to H \to G \to 1$, то
+возникает точная последовательность множеств с отмеченной точкой
+
+\[ 1 \to C(K) \to H(K) \to G(K) \to H^1 (K,C) \to H^1 (K,H) \to H^1 (K,G). \]
+\end{theorem}
+
+См. книгу Серра <<Когомологии Галуа>>.
+
+% 27.02.2012
+
+\subsection{Вторые когомологии}
+
+\begin{itemize}
+\item Напомним, что $H^1 (F,G)$~--- множество $G$-торсоров. \emph{Если $G$
+    коммутативна}, то это аффинная алгебраическая группа.
+
+(Как в этом случае умножаются торсоры?~--- Что-то типа $E_1 \mathop{*}
+E_2 = (E_1 \times E_2) / ((e_1,e_2) = (g\,e_1,g\,e_2))$.)
+
+\item $H^0 (F,G)$~--- это функтор $F \rightsquigarrow G(F)$,
+  т.е. функтор точек. \emph{Если $G$ коммутативна}, то $H^i (F,G)$
+  можно определить как $i$-й производный функтор. При $i = 1$ это
+  совпадает с первым определением.
+\end{itemize}
+
+\begin{theorem}
+Пусть имеется точная последовательность $1 \to C \to G \to H \to
+1$. Предположим, что $C \le \Cent (G)$. Тогда точная
+последовательность продолжается до вторых когомологий:
+
+\[ 1 \to C(F) \to G(F) \to H(F) \to H^1 (F,C) \to H^1 (F,G) \to H^1 (F,H) \to H^2 (F,C). \]
+\end{theorem}
+
+\begin{example}
+$H^2 (F, \mathbb{G}_m)=\Br (F)$~--- \emph{группа Брауэра} поля $F$:
+она состоит из классов эквивалентности $[A]$ центральных простых
+алгебр $A$ над $F$; умножение выглядит так: $[A]\cdot
+[B]=[A\otimes_FB]$.
+
+Пусть $X$~--- квазипроективное многообразие. Тогда $H^2
+(X,\mathbb{G}_m)_{tors} = \Br (X)$ (\emph{теорема Габбера} (Gabber)).
+(Загадочное замечание:
+подразумевается топология fppf, а для этальной топологии в определении
+торсора вместо $\overline{F}$ нужно взять $F^{sep}$.)
+\end{example}
+
+\begin{example}[Топологический аналог]
+Пусть $X$~--- хорошее топологическое пространство (например, область в
+$\mathbb R^n$, многообразие или CW-комплекс).
+
+Пусть $G$~--- топологическая группа (например, $S^1$, $S^3$, $\SL_2
+(\mathbb{C})$, $\O_n (\mathbb{C})$).
+
+Имеется левое действие $G \times (G\times X) \to (G\times X)$, $g_1
+\cdot (g_2,x) \mapsto (g_1\,g_2, x)$.
+
+Левое действие послойно и свободно на скрученной форме $G\times
+\mathcal{G} \to \mathcal{G}$.
+
+Для всех $x \in X$ возникает действие $G \times \mathcal{G} (x) \to
+\mathcal{G} (x)$. Здесь $\mathcal{G} (x) \isom G$, и этот изоморфизм
+зависит от $x$.
+
+$(\mathcal{G}, G\times \mathcal{G} \to \mathcal{G})$ в топологии
+называется \term{главным $G$-расслоением} (\term{principal
+  $G$-bundle}).
+
+$\mathcal{G}/G = X$.
+\end{example}
+
+\begin{example}
+$\mathbb{C}^\times = \GL_1 (\mathbb{C}) = \Aut (\mathbb{C}^1)$.
+
+Пусть $L \to X$~--- комплексное линейное расслоение, $z (X)$~---
+нулевое сечение.
+
+Рассмотрим отображение $\mathbb{C}^\times \times (L - z(X))\to (L -
+z(X))$, $(\lambda, v)\mapsto \lambda v$. Имеем изоморфизм $L(x) -
+0\isom \mathbb{C}^\times$, зависящий
+от $x$.
+
+\begin{itemize}
+\item Тогда $H^1 (X,\mathbb{C}^\times)$~--- классы изоморфизма
+  $\mathbb{C}^\times$-торсоров над $X$. Они соответствуют линейным
+  расслоениям над $X$: расслоению $L$ соответствует описанный выше
+  торсор $L - z(X)$, и по торсору $\mathcal G^\times$ можно построить
+  расслоение $\mathcal L$.
+
+\item Таким образом, мы видим, что $H^1 (X, \Aut (\mathbb{C}^1))$~---
+  это скрученные формы расслоения
+  $\mathbb{C}\times X$ над $X$.
+
+\item Аналогично, $H^1 (X, \Aut (\mathbb{C}^n))$~--- это (1) скрученные формы
+  расслоения $\mathbb{C}^n\times X$ над $X$, то есть (2) векторные
+  расслоения над $X$ со слоем $\mathbb{C}^n$ (с точностью до изоморфизма).
+
+\item Пусть $\Aut_{\mathbb{C}} (\mathbb{C}^{2n}, \sum u_i\,v_i)$~---
+  автоморфизмы, сохраняющие квадратичную форму.
+  Тогда \[H^1 (X, \Aut_{\mathbb{C}} (\mathbb{C}^{2n}, \sum
+  u_i\,v_i))\]--- это (1) скрученные формы расслоений вида
+  $(\mathbb{C}^n\times X, \sum u_i,v_i) \to X$, то есть (2) векторные
+  расслоения $E \to X$ со слоем $\mathbb{C}^n$ и с квадратичной формой в
+  слоях.
+
+\item Рассмотрим $\Aut (M_n (\mathbb{C})) = \PGL_n
+  (\mathbb{C})$. Тогда $H^1 (X, \Aut (M_n (\mathbb{C})))$~--- это
+  скрученные формы расслоений вида $M_n (\mathbb{C})\times X \to
+  X$. Например, по каждому расслоению $E\to X$ можно построить
+  расслоение $\End(E)\to X$, и послойно $\End(E)(x)=\End(E(x))$. Но
+  бывают и расслоения, не изоморфные никакому $\End(E)\to X$~--- это
+  нетривиальные топологические алгебры Адзумайи.
+\end{itemize}
+\end{example}
+
+Имеется точная последовательность
+
+\[ 1 \to \mathbb{C}^\times \to \GL_n (\mathbb{C}) \to \PGL_n (\mathbb{C}) \to 1. \]
+
+Отсюда получается точная последовательность
+
+\begin{gather*}
+1 \to \Gamma (X, \mathbb{C}^\times) \to \Gamma (X, \GL_n (\mathbb{C}))
+\to \Gamma (X, \PGL_n (\mathbb{C})) \to \\ \to H^1 (X,\mathbb{C}^1)
+\to H^1 (X,\GL_n (\mathbb{C})) \to H^1 (X, \PGL_n (\mathbb{C})) \to
+H^2 (X, \mathbb{C}^\times).
+\end{gather*}
+
+\term{Топологическая группа Брауэра} есть $\Br_{top} (X) \dfn
+H^2_{top} (X, \mathbb{C}^\times)$.
+
+\begin{example}
+Мы утверждаем, что
+\[ H^2 (X, S^1) \twoheadrightarrow H^3 (X, \mathbb{Z})_{tors}. \]
+
+Заметим, что
+$\mathbb{C}^\times \isom S^1 \times \mathbb{R}$. Имеем точную
+последовательность 
+\[ 0 \to \mathbb{Z} \to \mathbb{R} \to S^1 \to 0, \]
+откуда получаем точную последовательность
+\[ H^2(X,\mathbb{Z})\to H^2(X,\mathbb{R}\to H^2(X,S^1)\to
+H^3(X,\mathbb Z)\to H^3(X,\mathbb R)=H^3(X,\mathbb Z)\otimes \mathbb R.\]
+Обозначим отображение $H^3(X,\mathbb Z)\to H^3(X,\mathbb
+Z)\otimes\mathbb R$ через $\alpha$. Тогда связывающий гомоморфизм
+дает нам отображение $H^2(X,S^1)\to\ker(\alpha)=H^3(X,\mathbb Z)_{tors}$.
+
+На самом деле,
+\[ \Br_{top} (X) = H^3 (X,\mathbb{Z})_{tors}. \]
+Нечто такое написано как определение (у Серра? Гротендика?).
+\end{example}
+
+А какие нам известны нетривиальные скрученные формы алгебры $M_n (K)$?
+Так это и есть центральные простые алгебры.
+
+Имеем точную последовательность $1 \to \mathbb{G}_m \to \GL_n \to
+\PGL_n \to 1$, откуда
+
+\[ H^1 (F,\GL)_n \to H^1 (F, \PGL_n) \to H^2 (F,\mathbb{G}_m). \]
+
+При этом
+$H^1 (F,\GL)_n = \{ \bullet \}$, и $H^1 (F, \PGL_n)$~--- центральные
+простые алгебры степени $n$. Это отображение дает изоморфизм % ???
+
+\begin{eqnarray*}
+\Br (F) & \isom & H^2 (F,\mathbb{G}_m),\\
+A & \mapsto & [A].
+\end{eqnarray*}
+% тут пропущен кусок про умножение в H^1???
+
+Имеется точная последовательность
+\[ 1 \to \mu_n \to \mathbb{G}_m \to \mathbb{G}_m \to 1, \]
+где $\mathbb{G}_m \to \mathbb{G}_m$~--- отображение $x \mapsto x^n$.
+
+Получаем точную последовательность
+\[ \xymatrix{ H^1 (F,\mathbb{G}_m) \ar[r]\ar@{=}[d] & H^2 (F,\mu_n)
+  \ar[r] & H^2 (F,\mathbb{G}_m) \ar[r]\ar@{=}[d] & H^2
+  (F,\mathbb{G}_m)\ar@{=}[d] \\
+\{ \bullet \} & & \Br (F) \ar[r]^{\cdot n} & \Br (F) }, \]
+откуда
+$H^2 (F,\mu_n) = {}_n \Br (F)$.
+
+Еще один пример: пусть $\fchar F \ne 2$. Имеется точная последовательность
+\[ 1 \to \SO_n \to \O_n \xrightarrow{\det} \mu_2 \to 1. \]
+
+Тогда
+\[ \O_n (F) \twoheadrightarrow \mu_2 (F) \to H^1 (F,\SO_n) \to H^1 (F,\O_n) \xrightarrow{\disc} H^1 (F,\mu_2)=F^*/(F^*)^2. \]
+
+Отсюда $H^1 (F,\SO_n)$ (невырожденные квадратичные формы дискриминанта
+1)~--- подмножество в $H^1 (F,\O_n)$ (невырожденные квадратичные формы
+ранга $n$ с точностью до изометрии).
+
+Это дает нам инвариант $\disc=e_1\colon I\to I/I^2\isom F^*/(F^*)^2$.
+
+Еще один пример:
+\[ 1 \to \mu_2 \to \Spin_n \to \SO_n \to 1. \]
+
+\[ \Spin_n (F) \to \SO_n (F) \xrightarrow{N} H^1 (F,\mu_2) \xrightarrow{0} H^1 (F,\Spin_n) \to H^1 (F,\SO_n) \xrightarrow{e_2} H^2 (F,\mu_2). \]
+
+Здесь
+\begin{itemize}
+\item $H^2 (F,\mu_2) = {}_2 \Br (F)$.
+
+\item $N$~--- \term{спинорная норма}. А именно, каждый элемент $\SO_n$
+  раскладывается в произведение отражений $g = S_{v_1} \cdots
+  S_{v_{2k}}$; тогда $N(g) \dfn q (v_1) \cdots q (q_{2k})
+  \pmod{(F^\times)^2}$.
+
+\item Отображение $\Spin_n(F)\to\SO_n(F)$ уже не обязательно является
+  сюръективным.
+
+\item Мы не знаем, что такое $H^1(F,\Spin_n)$. Отображение
+  $H^1(F,\mu_2)\to H^1(F,\Spin_n)$ равно  $0$ по теореме Эйхлера.
+\end{itemize}
+
+Самая правая стрелка в этой длинной последовательности дает нам инвариант
+$e_2\colon I^2 \to I^2 / I^3 = {}_2 \Br (F)$. Его можно описать так:
+по форме $q$ можно построить алгебру Клиффорда $C(q)$ с четной частью
+$C_0(q)$. Тогда $e_2$ сопоставляет форме $q\in I^2$ класс $[C^+_0(q)]$
+в $\Br(F)$.
+
+Пусть $E$~--- левый $G$-торсор, $G$ действует на $X$ справа.
+Рассмотрим скрученную форму $X$
+
+\[ {}_EX \dfn (X\times E)/ \! {(x,e) \sim (x\,g^{-1}, g\,e)}. \]
+
+На ней действует ${}_EG$. Действительно,
+${}E_G=\Aut_{G-\text{торс}}(E)$~--- автоморфизмы $E$ как
+$G$-торсора. ${}_EG$ является группой (тут $G$ действует сопряжениями
+на себе). 
+
+% тут пропущен кусок???
+
+\begin{example}
+Рассмотрим $H^1 (F,\O_n)$.
+
+$E \in H^1 (F,\O_n)$ задается квадратичной формой $q$, и $q$ должна
+быть формой расщепимой квадратичной формы $q_0$. При этом $E = \Isom
+(q_0, q)$.
+
+$O (q_0)$ действует на квадрике $Q_0 \dfn \{ q_0 = x_1\,y_1 + \cdots +
+x_n\,y_n = 0 \} \subseteq \mathbb{P}^{2n-1}$.
+
+После подкрутки: ${}_EQ_0 = \{ q = 0 \}$ и на ${}_EQ_0$ действует
+группа $O(q)={}_EO(q_0)$.
+\end{example}
+
+\subsection{Многообразия Севери--Брауэра}
+
+\begin{example}
+Рассмотрим $H^1 (F, \PGL_n)$.
+
+Торсор $E\in h^1(F,\PGL_n)$ задается центральной простой алгеброй $A$
+степени $n$:
+$E = \Isom_{F\text{-}\categ{Alg}} (M_n, A)$. Напомним, что $\PGL_n=\Aut(M_n)$.
+
+%Что такое $\mathbb{P}^{n-1}$?
+
+Каждому вектору $v \in \mathbb{A}^n - \{ 0 \}$ соответствует правый
+идеал $\{x\mid \im x\leq \left<v\right>\}$ в $M_n$. Множество всех
+идеалов, получающихся таким образом~--- это в точности множество
+правых идеалов размерности $n$.
+
+%$\left<v\right> \rightsquigarrow \text{правый идеал в } M_n \{ x \mid
+%\im x \subseteq \left<v\right> \}$.
+
+${}_E\mathbb{P}^{n-1}$~--- Множество правых идеалов размерности $n$ в
+$A$~--- \term{многообразие Севери--Брауэра} $\SB (A)$.
+
+Уравнения:
+\[ \SB (A) \dfn \{ W \subset A \mid W\cdot A \subseteq A \}. \]
+
+Таким образом,
+\[ \SB (A) \hookrightarrow \Gr (n,A) = \Gr (n,n^2). \]
+
+\[ \xymatrix{
+A\times \SB(A) & A\times \Gr (n,n^2) \\
+\left.\tau\right|_{\SB (A)}\ar[d]\ar@{^(->}[u] & \tau_n\ar[d]\ar@{^(->}[u] & W\ar[d] \\
+\SB (A)\ar@{^(->}[r] & \Gr (n,n^2) & \{ w \}
+} \]
+\end{example}
+
+\begin{lemma}
+$\End_{\SB (A)} (J_A) \isom A$ (эндоморфизмы расслоения).
+\end{lemma}
+Поэтому два описания $H^1(F,\PGL_n)$~--- как алгебры Адзумайи и как
+формы $\mathbb P^{n-1}$~--- эквивалентны.
+
+\begin{proposition}
+Подрасслоение $\left.\tau\right|_{\SB(A)}$ выдерживает правое
+$A$-действие на $A\times \SB(A)$.
+
+$J_A \dfn \left.\tau\right|_{\SB (A)}$.
+\end{proposition}
+
+\begin{example}
+$\Gr (K,n)$ (линейные $k$-мерные подпространства в $\mathbb{A}^n$).
+
+Если $U$~--- $k$-мерное подпространство в $\mathbb{A}^n$, то
+$\{ x \mid \im x \subseteq U \}$~--- правый идеал в $M_n$ размерности
+$kn$.
+
+$\SB_k (A)$~--- обобщенное многообразие Севери--Брауэра~--- многообразие
+правых идеалов размерности $k$.
+\end{example}
+
+$\Gr (k,n) \isom \Gr (n-k, n)$ (напомним, что это не канонический
+изоморфизм). Аналог этой двойственности: $\SB_k (A) \isom \SB_{n-k}
+(A^{op})$.
+
+\begin{proposition}
+$\SB (A) (F) \ne \emptyset \Rightarrow A \isom M_n$.
+
+$\SB_k (A) (F) \ne \emptyset \Rightarrow \ind A \mid k$.
+\end{proposition}
+
+(Напомним, что такое $\ind$. Для центральной простой алгебры $A$ имеем
+$A \isom M_m (D)$, где $D$~--- тело. $m \cdot \deg D = n$. $\deg D \rdfn
+\ind A$, где $\deg D \dfn \sqrt{\dim D}$.)
+
+Скрученные формы $\mathbb{P}^{n-1}$~--- это скрученные формы
+$M_n$. Имеем $\Aut (\mathbb{P}^{n-1}) = \PGL_n$.
+
+Предположим $\fchar F \ne 2$.
+
+$\Aut(q_0) = O(q_0)$.
+
+$\Aut (Q_0)^+ = \PGO (q_0)$, где $Q_0$~--- квадрика $\{ q = 0 \}$.
+
+$H^1 (F, \PGO (q_0))$~--- классы $(A,\sigma)$ изоморфности центральных
+простых алгебр $A$ с ортогональной инволюцией $\sigma$.
+
+
+\[ \{ \text{правые идеалы }I\text{ в }(A,\sigma)\text{ размерности }\deg A \mid \sigma (I) \cdot I = 0 \} \rdfn X_{(A,\sigma)} \hookrightarrow \SB(A). \]
+
+При поднятии до $\overline{F}$ получаем:
+\[ Q_{\sigma (q_{\overline{F}})} \hookrightarrow \mathbb{P}^{\deg A -
+  1}_{\overline{F}} = \SB (A) \otimes_F \overline{F}. \]
+
+Вложение $X_{(A,\sigma)} \hookrightarrow \SB(A)$ есть аналог вложения
+квадрики в проективное пространство.
+
+% 05.03.2012
+
+\section{Проективные однородные многообразия}
+
+\subsection{Первые примеры}
+
+Еще раз про аналогию с топологией:
+
+$E\to X$~--- торсор на топологическом пространстве $X$, $G$ действует
+на $E$. Существует покрытие $\{U_i\}$ пространства $X$ такое, что
+\[\begin{xymatrix}{U_i\times G\isom E|_{U_i}\ar[r]\ar[d] & E \\
+U_i\ar@{^(->}[r] & X}\end{xymatrix}\]
+
+У нас: возьмем $X=\Spec K$. Пусть $E\to\Spec K$~--- торсор. Существует
+расширение полей $L/K$ такое, что торсор $E_L\to\Spec L$ изоморфен
+торсору $G_L\to\Spec L$.
+
+Мы хотим описать $H^1(K,G)$. Стратегия: для торсора $E$ и (гладкого
+проективного) $G$-многообразия $X$ мы определили ${}_EX$~---
+${}_EG$-многообразие (снова гладкое проективное), которое называется
+\emph{скрученной формой $X$},  то есть,
+\begin{itemize}
+\item $E_{\overline{K}}\isom
+G_{\overline{K}}$ как $G_{\overline{K}}$-многообразие,
+\item $({}_EG)_{\overline{K}}\isom G_{\overline{K}}$ как алгебраическая
+группа,
+\item $({}_EX)_{\overline{K}}\isom X_{\overline{K}}$ как
+  $G_{\overline{K}}$-многообразие.
+\end{itemize}
+
+\begin{example}
+Пусть $A\in H^1(K,\PGL_n)$; то есть, $A$~--- центральная простая
+алгебра степени $n$. Положим $E=\Isom(M_n,A)$, $X=\mathbb P^{n-1}$,
+$G=\PGL_n$. Тогда ${}_EG=\Aut(A)$, ${}_EX=\SB(A)$~--- многообразие
+правых идеалов в $A$ размерности $n$. Заметим, что $\SB(A)(K)$ непусто
+тогда и только тогда, когда $A\isom M_n$. Вообще, свойства многообразия
+$\SB(A)$ отражают свойства исходного торсора.
+\end{example}
+
+\begin{example}
+Пусть $G=\O_n$, $q\in H_1(K,\O_n)$~--- невырожденная квадратичная
+форма ранга $n$.
+
+$E=\Isom(q_0,q)$, где $q_0$ расщепима (то есть, имеет
+вид $\langle 1,-1\rangle\perp\dots\perp\langle 1,-1\rangle$ плюс,
+возможно, слагаемое $\langle 1\rangle$).
+
+$X=\{q_0=0\}$ в проективном смысле. Тогда $Q={}_EX=\{q=0\}$. Заметим,
+что  $Q(K)$ непусто тогда и только тогда, когда форма $q$ изотропна, то
+есть, $q\isom\langle 1,-1\rangle\perp q'$. Этот факт остается верным
+при любом расширении $L/K$: $Q(L)$ непусто тогда и только тогда, когда
+форма $q_L$ изотропна.
+\end{example}
+
+\begin{fact}
+Пусть $q$ имеет вид $\lAngle a_1,\dots,a_k\rAngle=\la
+1,-a_1\ra\otimes\dots\otimes\la 1,-a_k\ra$. Тогда
+\begin{multline}
+\text{
+Форма $q_L$ изотропна тогда и только тогда, когда она расщепима (то
+есть,} \\
+\text{раскладывается в сумму форм вида $\la 1,-1\ra$).}\tag{*}
+\end{multline}
+Наоборот, если $\dim q$ четна и (*) выполнено для любого расширения
+полей, то $q$ пфистерова с точностью до скаляра. Если же $\dim q$
+нечетна, то $q\perp\la 1\ra$ пфистерова с точностью до скаляра.
+\end{fact}
+
+Таким образом, от торсора $E$ можно переходить к многообразию ${}_EX$
+(и можно варьировать $X$), смотреть на его инварианты (в смысле
+алгебраической геометрии) и получать отсюда информацию об инвариантах
+торсора.
+
+Пусть $X$~--- гладкое проективное многообразие. Мы ограничимся
+случаем, когда $X$ \emph{однородное}, то есть, $G(\overline{K})$
+действует на $X(\overline{K})$ транзитивно (заметим, что это означает,
+что отображение $G\times X\to X\times X$, $(g,x)\mapsto (gx,x)$
+сюръективно как пучок, а не в категорном смысле; категорное понятие
+эпиморфизма не подходит для наших целей: например, отображение
+$\Spec{\mathbb Q}\to\Spec{\mathbb Z}$ сюръективно в категории схем).
+Неформально говоря, у $G$ на $X$ одна орбита.
+Тогда $X$ называется \term{проективным однородным многообразием}.
+
+Как строить проективные однородные многообразия? Пусть $G$~---
+расщепимая группа, $V$~--- неприводимое представление (в положительной
+характеристике нужно действовать осторожене). Рассмотрим $\mathbb
+P(V)$~--- многообразие прямых в $V$, проходящих через $0$. У группы
+$G$ есть ровно одна замкнутая орбита на $\mathbb P(V)$~--- это и есть
+наше $X$. На самом деле, все проективные однородные многообразия так
+получаются (но не обязательно единственным образом).
+
+\begin{example}
+$G=\SL_n$ действует на $V=K^n$ (имеется в виду обычное, \emph{векторное}
+представление). Пусть $u$, $v$~--- два вектора. Можно ли найти $g$
+такое, что $\la gu\ra=\la v\ra$ (здесь через $\la
+x\ra$ мы обозначаем прямую, натянутую на $x$)? Ответ~--- можно,
+если $u$ и $v$ отличны от $0$. Значит, в $K^n$ есть две орбиты
+действия группы $G$: $\{0\}$ и $\{v\mid v\neq 0\}$. После
+проективизации в $\mathbb P(K^n)=\mathbb P^{n-1}$ остается только одна
+орбита.
+\end{example}
+
+\begin{example}
+$G=\SL_n$ действует на $V=\Lambda^k(K^n)$, $k=1,\dots,n-1$. На
+неразложимых поливекторых орбит много, но на разложимых действие
+транзитивно. Свойство <<быть разложимым>> определяется уравнениями
+Плюккера. Орбита в $\mathbb P(\Lambda^k(K^N))$~--- это $\Gr(k,n)$.
+
+Пусть, к примеру, $n=4$, $k=2$. Диаграмма Хассе весов нашего
+представления выглядит так:
+\[
+\begin{tikzpicture}[scale=1.0,thin,
+aln/.style={above left=-2pt},
+arn/.style={above right=-2pt},
+bln/.style={below left=-2pt},
+brn/.style={below right=-2pt},
+every label/.style={above=2pt}]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.4, 1)$);
+\coordinate (4) at ($\sm*(2.4, -1)$);
+\coordinate (5) at ($\sm*(3.4, 0)$);
+\coordinate (6) at ($\sm*(4.8, 0)$);
+\draw (1)--node[above] {$2$}(2);
+\draw (2)--node[aln] {$1$}(3);
+\draw (2)--node[bln] {$3$}(4);
+\draw (3)--node[arn] {$3$}(5);
+\draw (4)--node[brn] {$1$}(5);
+\draw (5)--node[above] {$2$}(6);
+\foreach \point in
+{1,2,3,4,5,6}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\end{tikzpicture}
+\]
+Разложимый тензор задается двумя векторами. Запишем их в базисе
+$(e_1,e_2,e_3,e_3)$:
+$(a_1e_1+a_2e_2+a_3e_3+a_4e_4)\wedge(b_1e_1+b_2e_2+b_3e_3+b_4e_4)$. Обозначим
+координату тензора $x$ при бивекторе $e_i\wedge e_j$ через
+$x_{ij}$. Тогда разложимость $x$ равносильно обращению в $0$ выражения
+$x_{12}x_{34}-x_{13}x_{24}+x_{14}x_{23}$. Это следует, например, из
+соотношения на миноры матрицы
+$\begin{pmatrix}a_1&a_2&a_3&a_4\\b_1&b_2&b_3&b_4\end{pmatrix}$.
+\end{example}
+
+\subsection{Параболические подгруппы}
+Оказывается, любое $X$, являющееся орбитой в $\mathbb P(V)$, задается
+квадратичными уравнениями в проективных координатах.
+
+Пусть $v\in V$, $X=G\cdot\la v\ra$~--- орбита вектора
+$v$. Тогда $\Stab_G(\la v\ra)=P$~--- параболическая подгруппа
+в $G$. Проективное однородное многообразие задается подгруппой $P$ с
+точностью до сопряженности.
+
+Посмотрим, как тор $T$ в $G$ действует на вектор $v$. Из равенства
+$T\la v\ra=\la v\ra$ следует, что найдется $\lambda\colon T\to\mathbb
+G_m$ (\term{вес} неприводимого представления $V$) такое, что
+$tv=\lambda(t)v$ для всех $t\in T$. Представление задается своим старшим весом
+(точнее, орбитой веса относительно $W$, но в этой орбите есть
+единственный доминантный вес). %???
+% $v$~--- вектор старшего веса.
+Пусть $\alpha_1,\dots,\alpha_l$~--- простые корни.
+Рассмотрим базис $\alpha_1^\vee,\dots,\alpha_l^\vee$
+в двойственном пространстве, где $\alpha_i^\vee$ определяется
+равенством
+$\alpha_i^\vee(\beta) = \frac{2(\alpha_i,\beta)}{(\alpha_i,\alpha_i)}$.
+Пусть $\varpi_1,\dots,\varpi_l$~--- двойственный к нему базис.
+Таким образом,
+$\frac{2(\alpha_i,\varpi)}{(\alpha_i,\alpha_i)} = \delta_{ij}$.
+Эти элементы $\varpi_1,\dots,\varpi_l$ называются
+\term{фундаментальными весами}.
+Вес $\lambda$ раскладывается по этому базису следущим образом:
+$\lambda = \sum m_i\omega_i$.
+После этого $X$ (и $P$) зависит только от того, какие из $m_i$ не равны $0$.
+То есть, проективные однородные многообразия задаются подмножеством
+вершин на диаграмме Дынкина, состоящим из тех вершин, для которых
+$m_i\neq 0$.
+Мы будем их обводить на картинке.
+
+Например, картинка для проективного пространства такая:
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (3p) at ($\sm*(3.3, 0)$);
+\coordinate (d1) at ($\sm*(3.5, 0)$);
+\coordinate (d2) at ($\sm*(3.7, 0)$);
+\coordinate (d3) at ($\sm*(3.9, 0)$);
+\coordinate (4m) at ($\sm*(4.1, 0)$);
+\coordinate (4) at ($\sm*(4.6, 0)$);
+\coordinate (5) at ($\sm*(6.0, 0)$);
+\node at (1) [below=3pt,font=\scriptsize] {$1$};
+\node at (2) [below=3pt,font=\scriptsize] {$2$};
+\node at (3) [below=3pt,font=\scriptsize] {$3$};
+\node at (4) [below=3pt,font=\scriptsize] {$n-2$};
+\node at (5) [below=3pt,font=\scriptsize] {$n-1$};
+\draw (1)--(2);
+\draw (2)--(3);
+\draw (3)--(3p);
+\draw (4m)--(4);
+\draw (4)--(5);
+\foreach \point in
+{1,2,3,4,5}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\draw [black] (1) circle (5.0pt);
+\foreach \point in
+{d1,d2,d3}
+  {
+     \fill [black] (\point) circle (0.7pt);
+  }
+\node (c) at ($\sm*(7.5, 0)$) {$\mathsf{A}_{n-1}$};
+\end{tikzpicture}
+\]
+Это соответствует векторному представлению $V = V(\varpi_1)$ группы
+$\SL_n$.
+Вообще, если на диаграмме $\mathsf{A}_{n-1}$ обвести вершину с номером $k$,
+получится $\Gr(k,n)$.
+Есть еще, например, присоединенное представление: $\SL_n$ действует
+на своей алгебре Ли $\Lie(\SL_n)$. Картинка для этого представления
+такая: 
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (2p) at ($\sm*(1.9, 0)$);
+\coordinate (d1) at ($\sm*(2.1, 0)$);
+\coordinate (d2) at ($\sm*(2.3, 0)$);
+\coordinate (d3) at ($\sm*(2.5, 0)$);
+\coordinate (3m) at ($\sm*(2.7, 0)$);
+\coordinate (3) at ($\sm*(3.2, 0)$);
+\coordinate (4) at ($\sm*(4.6, 0)$);
+\node at (1) [below=3pt,font=\scriptsize] {$1$};
+\node at (2) [below=3pt,font=\scriptsize] {$2$};
+\node at (3) [below=3pt,font=\scriptsize] {$n-2$};
+\node at (4) [below=3pt,font=\scriptsize] {$n-1$};
+\draw (1)--(2);
+\draw (2)--(2p);
+\draw (3m)--(3);
+\draw (3)--(4);
+\foreach \point in
+{1,2,3,4}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\draw [black] (1) circle (5.0pt);
+\draw [black] (4) circle (5.0pt);
+\foreach \point in
+{d1,d2,d3}
+  {
+     \fill [black] (\point) circle (0.7pt);
+  }
+\node (c) at ($\sm*(6.1, 0)$) {$\mathsf{A}_{n-1}$};
+\end{tikzpicture}
+\]
+Первая вершина соответствует $V$, последняя~--- $V^*$,
+в итоге получаем $V^*\otimes V\isom \End(V)$.
+
+Если обведена одна вершина ($V = V(\varpi_i)$), то $P$ называется
+\term{максимальной} параболической.
+Если все вершины обведены, то $P$ называется \term{борелевской}
+(это минимальная среди параболических).
+Любая гладкая замкнутая подгруппа, содержащая $B$, называется
+\term{параболической} и получается таким образом: $B\leq P \leq G$.
+
+Пусть теперь на диаграмме Дынкина системы $\mathsf{A}_{n-1}$ обведены
+вершины с номерами $k_1,\dots,k_m$.
+Полученное многообразие можно описать в терминах стандартного
+представления $V = K^n$ группы $\SL_n$.
+А именно,
+\[
+X = \{U_1\leq\dots\leq U_m\mid \dim U_i = k_i\}.
+\]
+Такое $X$ называется \term{многообразием флагов}.
+При этом $\SL_n$ действует на $X$ транзитивно.
+Заметим, что тензорное произведение
+$V(\varpi_{k_1})\otimes\dots\otimes V(\varpi_{k_m}0$ уже не обязано
+быть неприводимым, но можно взять кусок, соответствующий
+весу $\varpi_{k_1} + \dots + \varpi_{k_m}$.
+
+Так мы описали все однородные проективные многообразия для группы
+$\SL_n$.
+В общем случае (для произвольной $G$) иногда однородное проективное
+многообразие называют \term{обобщенным флаговым многообразием}.
+Его можно описать так:
+\[
+X = \{P'\leq G\mid P'\mbox{ сопряжена с }P\},
+\]
+где значок $P'\leq G$ означает, что $P'$~--- гладкая замкнутая подгруппа
+в $G$.
+Более точно,
+\[
+X(R) = \{P'\leq G_R \mid\mbox{существуют }S/R, g\in G(S):\; gP'g^{-1} = P\}.
+\]
+После подкрутки на торсор $E$ получаем
+\[
+{}_{E}X = \{P'\leq {}_{E}G\mid P'_{\ol{K}}\mbox{ сопряжена с }P_{\ol{K}}
+\mbox{ внутри }({}_{E}G)_{\ol{K}} = G_{\ol{K}}\}.
+\]
+Обратите внимание, что в ${}_{E}G$ никакой $P$ может не оказаться.
+
+Проективное однородное многообразие $X$ \term{изотропно},
+если $X(K)\neq\emptyset$.
+Сама группа ${}_{E}G$ называется \term{изотропной}, если для какого-то
+проективного однородного многообразия ${}_{E}X$, отличного от точки,
+${}_{E}X$ изотропно.
+
+Пусть $G = \PGL_n$.
+Ее скрученная форма ${}_{E}G$ имеет вид $\Aut(A)$, а соответствующая
+скрученная форма проективного пространства~--- $\SB(A)$.
+Заметим, что у $\PGL_n$ (в отличие от $\SL_n$) нет векторного представления.
+Почему?
+Для начала поймем, откуда берется скрученная форма $\SL_n$.
+Отображение определителя $\det\colon\GL_n\to\mathbb{G}_m$
+скручивается в \emph{приведенную норму} (\emph{reduced norm})
+\[
+\Nrd\colon A^* = \GL_1(A) \to \mathbb{G}_m.
+\]
+Ядро этого отображения обозначается через
+$\SL_1(A) = \{g\in A\mid\Nrd(g)=1\}$.
+Например, $(\Nrd(x))^n = \det(y\mapsto xy)$.
+
+Решетка корней содержится в решетке весов:
+\[
+\mathbb{Z}\alpha_1\oplus\dots\oplus\mathbb{Z}\alpha_l
+\leq
+\mathbb{Z}\varpi\oplus\dots\oplus\mathbb{Z}\varpi_l
+\]
+Диаграммы Дынкина классифицируют расщепимые полупростые группы с точностью
+до изогении, а класс изоморфности внутри класса изогении задается
+промежуточной решеткой между этими двумя (с точностью до внешних
+автоморфизмов).
+Минимальная решетка $\mathbb{Z}\alpha_1\oplus\dots\oplus\mathbb{Z}\alpha_l$
+соответствует присоединенной группе (без центра);
+максимальная решетка $\mathbb{Z}\varpi_1\oplus\dots\oplus\mathbb{Z}\varpi_l$
+соответствует односвязной группе (у нее самый большой центр).
+
+
+
+\end{document}
