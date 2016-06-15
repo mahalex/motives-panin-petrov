@@ -61,6 +61,7 @@
 \DeclareMathOperator{\Mor}{Mor}
 \DeclareMathOperator{\pr}{pr}
 \DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\res}{res}
 
 %\DeclareFontFamily{OT1}{pzc}{}
 %\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.2] pzcmi7t}{}
@@ -85,6 +86,8 @@
 \newtheorem{example}[theorem]{Пример}
 \newtheorem{fact}[theorem]{Факт}
 \newtheorem{remark}[theorem]{Замечание}
+\newtheorem{exercise}[theorem]{Упражнение}
+\newtheorem{definition}[theorem]{Определение}
 
 \newcommand{\la}{\langle}
 \newcommand{\ra}{\rangle}
@@ -92,6 +95,7 @@
 \newcommand{\rAngle}{\rangle\!\rangle}
 \newcommand{\trleq}{\trianglelefteq}
 \newcommand{\ol}{\overline}
+\newcommand{\wt}{\widetilde}
 
 \newcommand{\TBW}{\textbf{TBW}}
 
@@ -1679,7 +1683,7 @@ x_1 = x_2 = y_3 = 0.
 Более простой вопрос:
 рассмотрим отображение
 \[
-\CH^*({}_{E}Q) \xrightarrow{res} \CH^*(({}_{E}Q)_{\ol{F}}).
+\CH^*({}_{E}Q) \xrightarrow{\res} \CH^*(({}_{E}Q)_{\ol{F}}).
 \]
 Что можно сказать про образ этого отображения (то есть,
 про рациональные циклы)?
@@ -1781,7 +1785,7 @@ $O(q)$-эквивариантны.
 
 \section{Мотивы Чжоу}
 
-\subsection{Категория соответствий}
+\subsection{Категория соответствий}\label{ssect:corr-category}
 
 До сих пор мы смотрели на $\CH^*$ и на морфизмы вида
 $\CH^*(X)\to\CH^*(\ol{X})$.
@@ -1910,6 +1914,8 @@ $M(\mathbb{P}^1) = M(\pt) \oplus (\mathbb{P}^1, 1 - [p])$.
 $L^{\otimes k} = \mathbb{Z}(k)[2k] = \mathbb{Z}\{k\}$.
 Это в некотором смысле <<мотив>> $k$-мерного аффинного пространства.
 
+\subsection{Представимость функтора Чжоу}
+
 Часто удается разложить мотив многообразия $X$ в прямую сумму вида
 $M(X) = \bigoplus M(Y_i)\otimes\mathbb{L}^{\otimes k_i}$,
 где $Y_i$~--- какие-то другие многообразия.
@@ -1946,7 +1952,9 @@ $\beta\colon M(X) \to \mathbb{L}^{\otimes n}$.
 Правая часть изоморфна $\mathbb{L}^{\otimes(k+n)}$.
 Взяв композицию с морфизмом $M(\Delta)\colon M(X) \to M(X\times X)$,
 получаем $\alpha\cup\beta\colon M(X) \to \mathbb{L}^{\otimes(k+n)}$.
-\begin{theorem}[Карпенко, 2000]
+
+\subsection{Теорема Карпенко}
+\begin{theorem}[Карпенко, 2000]\label{thm:karpenko}
 Пусть дана фильтрация многообразия $X$ замкнутыми (не обязательно гладкими)
 подмножествами
 \[
@@ -1969,6 +1977,9 @@ $M(X) = \bigoplus M(Y_i)\{\dim X - \dim Y_i - k_i\}$.
 В частности, имеется функториальный (по $Z$)
 изоморфизм $\CH^*(X\times Z) \isom \bigoplus\CH^{*-k_i}(Y_i\times Z)$.
 \end{theorem}
+
+Фильтрация из теоремы~\ref{thm:karpenko} называется
+\term{относительным клеточным разложением}.
 
 \begin{example}
 Фильтрация
@@ -2083,6 +2094,466 @@ $1\times [\pt]$, $[\pt]\times 1$, $\Delta_Q - 1\times[\pt] - [\pt]\times 1$.
 Воеводского.
 При желании можно представлять это как композицию двух сдвигов:
 $(1)[1]$~--- сдвиг на $\mathbb{G}_m$, $(0)[1]$~--- сдвиг на $S^1$.
+\end{remark}
+
+\begin{remark}
+В общем случае, разложение Брюа показывает, что если $G$~--- расщепимая
+группа, $P$~--- ее параболическая подгруппа,
+то мотив однородного многообразия $G/P$ равен прямой сумме
+сдвигов $\mathbb{Z}$:
+$M(G/P) = \bigoplus\mathbb{Z}\{\dots\}$.
+При этом $\mathbb{Z}\{i\}$ встречается столько раз, каково количество
+минимальных представителей классов смежности из $W/W_P$ длины $i$.
+Поэтому сдвиги считываются из диаграммы Хассе.
+\end{remark}
+\begin{example}
+Например, для $\mathbb{P}^n$ диаграмма Хассе выглядит так:
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (2p) at ($\sm*(1.9, 0)$);
+\coordinate (d1) at ($\sm*(2.1, 0)$);
+\coordinate (d2) at ($\sm*(2.3, 0)$);
+\coordinate (d3) at ($\sm*(2.5, 0)$);
+\coordinate (3m) at ($\sm*(2.7, 0)$);
+\coordinate (3) at ($\sm*(3.2, 0)$);
+\coordinate (4) at ($\sm*(4.6, 0)$);
+\node at (1) [below=3pt,font=\scriptsize] {$0$};
+\node at (2) [below=3pt,font=\scriptsize] {$1$};
+\node at (3) [below=3pt,font=\scriptsize] {$n-1$};
+\node at (4) [below=3pt,font=\scriptsize] {$n$};
+\draw (1)--(2);
+\draw (2)--(2p);
+\draw (3m)--(3);
+\draw (3)--(4);
+\foreach \point in
+{1,2,3,4}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{d1,d2,d3}
+  {
+     \fill [black] (\point) circle (0.7pt);
+  }
+\end{tikzpicture}
+\]
+Поэтому мотив $\mathbb{P}^n$ равен
+$\mathbb{Z}\oplus\mathbb{Z}\{1\}\oplus\dots\oplus\mathbb{Z}\{n\}$.
+Для [расщепимой] квадрики $Q$ четной размерности диаграмма такая:
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (2p) at ($\sm*(1.9, 0)$);
+\coordinate (d1) at ($\sm*(2.1, 0)$);
+\coordinate (d2) at ($\sm*(2.3, 0)$);
+\coordinate (d3) at ($\sm*(2.5, 0)$);
+\coordinate (3m) at ($\sm*(2.7, 0)$);
+\coordinate (3) at ($\sm*(3.2, 0)$);
+\coordinate (4) at ($\sm*(4.2, 1)$);
+\coordinate (5) at ($\sm*(4.2, -1)$);
+\coordinate (6) at ($\sm*(5.2, 0)$);
+\coordinate (6p) at ($\sm*(5.7, 0)$);
+\coordinate (e1) at ($\sm*(5.9, 0)$);
+\coordinate (e2) at ($\sm*(6.1, 0)$);
+\coordinate (e3) at ($\sm*(6.3, 0)$);
+\coordinate (7m) at ($\sm*(6.5, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\coordinate (8) at ($\sm*(8.4, 0)$);
+\node at (1) [below=3pt,font=\scriptsize] {$0$};
+\node at (2) [below=3pt,font=\scriptsize] {$1$};
+\node at (5) [below=3pt,font=\scriptsize] {$n/2$};
+\node at (7) [below=3pt,font=\scriptsize] {$n-1$};
+\node at (8) [below=3pt,font=\scriptsize] {$n$};
+\draw (1)--(2);
+\draw (2)--(2p);
+\draw (3m)--(3);
+\draw (3)--(4);
+\draw (3)--(5);
+\draw (4)--(6);
+\draw (5)--(6);
+\draw (6)--(6p);
+\draw (7m)--(7);
+\draw (7)--(8);
+\foreach \point in
+{1,2,3,4,5,6,7,8}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{d1,d2,d3,e1,e2,e3}
+  {
+     \fill [black] (\point) circle (0.7pt);
+  }
+\end{tikzpicture}
+\]
+Поэтому $M(Q) = \mathbb{Z}\oplus\mathbb{Z}\{1\}\oplus\dots
+\oplus\mathbb{Z}\{n/2\}^{\otimes 2} \oplus\mathbb{Z}\{n/2+1\}\oplus\dots
+\oplus\mathbb{Z}\{n\}$.
+\end{example}
+
+\subsection{Метод общей точки}
+
+Пока что мы получали мотивные разложения только с помощью фильтраций
+и теоремы Карпенко.
+Сейчас мы узнаем еще один прием~--- \emph{метод общей точки}.
+Пусть $X,Y$~--- многообразия, причем $Y$ неприводимо.
+Рассмотрим $X_{F(Y)}$ и его кольцо Чжоу $\CH^*(X_{F(Y)}$
+(напомним, что $F(Y)$~--- поле рациональных функций на $Y$).
+\begin{lemma}
+Отображение $\CH^*(X\times Y)\to\CH^*(X_{F(Y)})$,
+полученное из декартова квадрата
+\[
+\begin{tikzcd}
+X_{F(Y)} \arrow{r}\arrow{d} & X\times Y \arrow{d} \\
+\Spec F(Y) \arrow[right hook->]{r} & Y,
+\end{tikzcd}
+\]
+сюръективно.
+\end{lemma}
+\begin{proof}
+Указанную диаграмму можно представлять себе как индуктивный предел
+диаграмм вида
+\[
+\begin{tikzcd}
+X\times U \arrow{r}\arrow{d} & X\times Y \arrow{d} \\
+U \arrow[right hook->]{r} & Y,
+\end{tikzcd}
+\]
+где $U$~--- открытое непустое в $Y$ (поскольку $\Spec F(Y) = \varinjlim U$).
+Но каждое полученное таким образом отображение
+$\CH^*(X\times Y) \to \CH^*(X\times U)$ сюръективно в силу точной
+последовательности локализации.
+\end{proof}
+
+Как этим пользоваться?
+Чтобы выделить прямое слагаемое в мотиве $X$, нам нужно
+найти проектор $p\in\CH^{\dim X}(X\times X)$.
+Для этого есть два варианта:
+\begin{enumerate}
+\item взять $Y:= X$, выбрать какой-то элемент из $\CH^i(X_{F(X)})$
+и поднять его в $\CH^i(X\times X)$;
+\item взять какой-нибудь $Y$, построить элементы из $\CH^i(X\times Y)$,
+$\CH^i(Y\times X)$, взять их композицию, и дальше как в первом пункте.
+\end{enumerate}
+Пусть $X$~--- гладкое проективное над $F$.
+Напомним, что цикл $\alpha\in\CH^*(X_{\ol{F}})$ называется
+рациональным, если он лежит в образе отображения
+\[
+\res\colon\CH^*(X) \to \CH^*(X_{\ol{F}}).
+\]
+Аналогично, можно рассмотреть отображение
+\[
+\res\colon\CH^*(X\times X) \to \CH^*(X_{\ol{F}}\times X_{\ol{F}}).
+\]
+Правая часть гораздо лучше левой.
+
+Предположим, что мы нашли цикл $p\in\CH^*(X_{\ol{F}}\times X_{\ol{F}})$
+такой, что
+\begin{enumerate}
+\item $p$~--- проектор (в смысле композиции, определенной в
+разделе~\ref{ssect:corr-category});
+\item $p$ рационален, то есть, $p$ поднимается до какого-то
+$\wt{p}\in\CH^*(X\times X)$.
+\end{enumerate}
+Следует ли из этого, что $\wt{p}$ является проектором?
+Вообще говоря~--- нет, но для однородных многообразий есть такая теорема.
+
+\begin{theorem}[Теорема нильпотентности Роста]
+Если $X$~--- проективное однородное многообразие,
+$p$~--- рациональный проектор на $X_{\ol{F}}$, то он
+поднимается до проектора $\wt{p}$ на $X$.
+Более сильное утверждение:
+\[
+\ker(\CH^*(X\times X) \to \CH^*(X_{\ol{F}}\times X_{\ol{F}}))
+\]
+состоит из нильпотентных (в смысле композиции) элементов.
+\end{theorem}
+
+Как выглядят очевидные элементы $\CH^*(X\times X)$?
+Можно взять $\alpha\in\CH^*(X)$, $b\in\CH^*(X)$, и получить
+$a\times b\in\CH^*(X\times X)$.
+
+\begin{exercise}
+В этом случае $(a\times b)\circ (c\times d) = \deg(ad)(c\times b)$,
+где $\deg\colon\CH^*(Y) \to \CH^*(\pt)$ происходит из
+морфизма $Y\to\pt$.
+\end{exercise}
+
+\begin{exercise}
+Пусть $R$~--- коммутативное кольцо, $I\trleq R$~--- идеал, состоящий
+из нильпотентных элементов.
+Тогда любой идемпотентв $R/I$ поднимается до идемпотента в $R$.
+\end{exercise}
+
+\begin{definition}
+Многообразие $X$ называется \term{клеточным}, если существует
+фильтрация вида
+\[
+\begin{tikzcd}[column sep=1.2em]
+X = X_0 & \arrow{d}{\mathbb{A}^{k_0}} &
+X_1 \arrow[left hook->]{ll} & \arrow{d}{\mathbb{A}^{k_1}} &
+X_2 \arrow[left hook->]{ll} & & \dots \arrow[left hook->]{ll} & &
+X_n \arrow[left hook->]{ll} & \arrow{d}{\mathbb{A}^{k_n}} &
+X_{n+1} = \emptyset, \arrow[left hook->]{ll} \\
+& \pt & & \pt & & & \dots & & & pt
+\end{tikzcd}
+\]
+в которой все базы~--- точки.
+\end{definition}
+\begin{example}
+Разложение Брюа говорит, что если группа $G$ расщепима,
+$P$~--- параболическая подгруппа в $G$,
+то многообразия $G/P$ клеточное.
+\end{example}
+Из теоремы Карпенко~\ref{thm:karpenko} следует, что для клеточного
+многообразия $M(X) = \bigoplus \mathbb{Z}\{r_i\}$.
+
+\begin{definition}
+Многообразие $X$ называется \term{клеточным над общей точкой}
+(\term{generically cellular}), если $X_{F(X)}$ клеточное.
+\end{definition}
+\begin{example}
+Пусть $Q$~--- \term{Квадрика Пфистера}, то есть, $Q = \{q=0\}$,
+где $q = \lAngle a_1,\dots,a_k\rAngle = \la 1,-a_1\ra \otimes\dots
+\otimes\la 1,-a_k\ra$~--- $k$-кратная форма Пфистера
+(размерность $Q$ равна $2^k-2$).
+Тогда $Q$ клеточная над общей точкой.
+\end{example}
+Верно и обратное: все анизотропные четномерные квадрики,
+клеточные над общей точкой, так выглядят.
+
+\subsection{Мотив квадрики Пфистера}
+
+Пусть $Q$~--- квадрика Пфистера размерности $2^k - 2$.
+Мы знаем, что $Q_{F(Q)}$~--- клеточное многообразие.
+Обозначим образующие компонент $\CH^*(Q_{F(Q)})$:
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (2p) at ($\sm*(1.9, 0)$);
+\coordinate (d1) at ($\sm*(2.1, 0)$);
+\coordinate (d2) at ($\sm*(2.3, 0)$);
+\coordinate (d3) at ($\sm*(2.5, 0)$);
+\coordinate (3m) at ($\sm*(2.7, 0)$);
+\coordinate (3) at ($\sm*(3.2, 0)$);
+\coordinate (4) at ($\sm*(4.2, 1)$);
+\coordinate (5) at ($\sm*(4.2, -1)$);
+\coordinate (6) at ($\sm*(5.2, 0)$);
+\coordinate (6p) at ($\sm*(5.7, 0)$);
+\coordinate (e1) at ($\sm*(5.9, 0)$);
+\coordinate (e2) at ($\sm*(6.1, 0)$);
+\coordinate (e3) at ($\sm*(6.3, 0)$);
+\coordinate (7m) at ($\sm*(6.5, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\coordinate (8) at ($\sm*(8.4, 0)$);
+\node at (1) [below=3pt,font=\scriptsize] {$0$};
+\node at (2) [below=3pt,font=\scriptsize] {$1$};
+\node at (5) [below=3pt,font=\scriptsize] {$2^{k-1}-1$};
+\node at (7) [below=3pt,font=\scriptsize] {$2^k-3$};
+\node at (8) [below=3pt,font=\scriptsize] {$2^k-2$};
+\node at (1) [above=3pt,font=\scriptsize] {$1$};
+\node at (2) [above=3pt,font=\scriptsize] {$h$};
+\node at (4) [above=3pt,font=\scriptsize] {$\rho$};
+\node at (6) [above=3pt,font=\scriptsize] {$h\rho$};
+\node at (8) [above=3pt,font=\scriptsize] {$h^{2^{k-1}}\rho$};
+\draw (1)--(2);
+\draw (2)--(2p);
+\draw (3m)--(3);
+\draw (3)--(4);
+\draw (3)--(5);
+\draw (4)--(6);
+\draw (5)--(6);
+\draw (6)--(6p);
+\draw (7m)--(7);
+\draw (7)--(8);
+\foreach \point in
+{1,2,3,4,5,6,7,8}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{d1,d2,d3,e1,e2,e3}
+  {
+     \fill [black] (\point) circle (0.7pt);
+  }
+\end{tikzpicture}
+\]
+Возьмем $\rho\in\CH^*(Q_{F(Q)})$ и поднимем его до какого-то элемента
+$\alpha\in\CH^*(Q\times Q)$.
+Рассмотрим коммутативную диаграмму
+\[
+\begin{tikzcd}
+\alpha\in\CH^*(Q\times Q) \arrow[->>]{r} \arrow{d}{\res}
+& \CH^*(Q_{F(Q)})\ni\rho \arrow{d}{\isom} \\
+\ol{\alpha}\in\CH^*(Q_{\ol{F}}\times Q_{\ol{F}}) \arrow[->>]{r}
+& \CH^*(Q_{\ol{F}(Q)})\ni\ol{\rho}
+\end{tikzcd}
+\]
+Мы не умеем следить за $\alpha$, но знаем, что $\ol{\alpha} = \res(\alpha)$
+переходит в $\ol{\rho}$ (который отождествляется с $\rho$
+при помощи изоморфизма), и знаем, как выглядит нижняя
+горизонтальная стрелка.
+
+Итак, $\ol{\alpha}$ является прообразом $\rho$, поэтому обязан иметь вид
+\[
+\ol{\alpha} = \ol{\rho}\times 1
++ c_1\cdot h^{2^{k-1}-2} \times h
++ c_2\cdot h^{2^{k-1}-3} \times h^2
++ \dots
++ c_{2^{k-1}-1}\cdot 1\times h^{2^{k-1}-1}
++ c\cdot 1\times\ol{\rho}.
+\]
+Заметим, что все слагаемые в правой части, кроме первого и последнего,
+содержатся в образе $\res$, посольку $h$ рационален.
+Поэтому (подправив $\alpha$) можно считать,
+что $\ol\alpha = \ol\rho\times 1 + c\cdot 1 \times \ol\rho$.
+
+Кроме того, цикл $2\ol\rho$ рационален, поскольку квадрика $Q$
+ращепляется квадратичным расширением.
+Действительно, если $q = \lAngle a_1,\dots,a_k\rAngle$, достаточно взять
+поле $F(\sqrt{a_1})$.
+Над этим полем $q$ изотропна, а потому гиперболична.
+Рассуждение заканчивается рассмотрением диаграммы
+\[
+\begin{tikzcd}
+\CH^*(Q) \arrow[yshift=-2pt]{r} \arrow{d} & \CH^*(Q_{F(\sqrt{a_1})}) \arrow{d}
+\arrow[yshift=2pt]{l} \\
+\CH^*(Q_{\ol{F}}) \arrow[yshift=-2pt]{r} & \CH^*(Q_{\ol{F}(\sqrt{a_1})}).
+\arrow[yshift=2pt]{l}
+\end{tikzcd}
+\]
+
+Стало быть, либо $\ol\rho\times 1$ рационален, либо
+$\ol\rho\times 1 + 1\times\ol\rho$ рационален (в зависимости от четности $c$).
+
+Предположим для начала, что $\ol\rho\times 1$ рационален.
+Докажем, что в этом случае $Q$ изотропна.
+Действительно, циклы $\ol\rho\times 1$ и $1\times\ol\rho$ рациональны,
+а потому и $(\ol\rho\times 1)\cdot(1\times\ol\rho) = \ol\rho\times\ol\rho$
+рационален.
+Кроме того, $\ol{h}\times 1$ и $1\times\ol{h}$ рациональны,
+а потому и $\ol{\pt}\times\ol{\pt}$ рационален.
+Рассмотрим пушфорвард относительно проекции $Q\times Q$ на первый сомножитель:
+\begin{align*}
+\CH^*(\ol{Q}\times\ol{Q}) &\to \CH^*(\ol{Q}),
+\ol{\pt}\times\ol{\pt} &\mapsto \ol{\pt}.
+\end{align*}
+Поэтому и цикл $\ol{\pt}$ рационален.
+Значит, на $Q$ есть $0$-цикл степени $1$.
+По теореме Спрингера из этого следует, что на $Q$ есть рациональная точка,
+то есть, $Q$ изотропна~--- и это неинтересный случай.
+
+Значит, на самом деле цикл $\ol\rho\times 1 + 1\times\ol\rho$
+рационален.
+Из него можно постараться изготовить проектор.
+Заметим, что для любых $i,j$ цикл
+$(\ol{h}^i\ol\rho)\times \ol{j}^j + \ol{h}^i\times (\ol{h}^j\ol\rho)$
+тоже рационален.
+Как подобрать $i,j$, чтобы это был проектор?
+Заметим, что $\ol\rho$ лежит в коразмерности $2^{k-1} - 1$,
+поэтому нужно, чтобы $j = 2^{k-1} - 1 - i$.
+Оказывается, этого достаточно: нужно вспомнить формулу
+$(a\times b)(c\times d) = \deg(ad)c\times b$
+и равенство $\ol{h}^{2^{k-1}-1}\ol\rho = \ol{\pt}$.
+После этого прямое вычисление показывает, что
+мы получили проектор.
+Варьируя $i$, получаем $2^{k-1} - 1$ проекторов.
+
+Соответствующее разложение мотива $Q$ можно нарисовать так:
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (3p) at ($\sm*(3.3, 0)$);
+\coordinate (d1) at ($\sm*(3.5, 0)$);
+\coordinate (d2) at ($\sm*(3.7, 0)$);
+\coordinate (d3) at ($\sm*(3.9, 0)$);
+\coordinate (4m) at ($\sm*(4.1, 0)$);
+\coordinate (4) at ($\sm*(4.6, 0)$);
+\coordinate (5) at ($\sm*(6.0, 0)$);
+\coordinate (6) at ($\sm*(7.0, 1)$);
+\coordinate (7) at ($\sm*(7.0, -1)$);
+\coordinate (8) at ($\sm*(8.0, 0)$);
+\coordinate (9) at ($\sm*(9.4, 0)$);
+\coordinate (9p) at ($\sm*(9.9, 0)$);
+\coordinate (e1) at ($\sm*(10.1, 0)$);
+\coordinate (e2) at ($\sm*(10.3, 0)$);
+\coordinate (e3) at ($\sm*(10.5, 0)$);
+\coordinate (10m) at ($\sm*(10.7, 0)$);
+\coordinate (10) at ($\sm*(11.2, 0)$);
+\coordinate (11) at ($\sm*(12.6, 0)$);
+\coordinate (12) at ($\sm*(14.0, 0)$);
+\draw (1)--(2)--(3)--(3p);
+\draw (4m)--(4)--(5)--(6);
+\draw (5)--(7);
+\draw (6)--(8);
+\draw (7)--(8)--(9)--(9p);
+\draw (10m)--(10)--(11)--(12);
+\draw[dotted] (1) edge[bend left=45](6);
+\draw[dotted] (2) edge[bend left=35](8);
+\draw[dotted] (3) edge[bend left=45](9);
+\draw[dotted] (4) edge[bend right=45](10);
+\draw[dotted] (5) edge[bend right=35](11);
+\draw[dotted] (7) edge[bend right=45](12);
+\foreach \point in
+{1,2,3,4,5,6,7,8,9,10,11,12}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{d1,d2,d3,e1,e2,e3}
+  {
+     \fill [black] (\point) circle (0.7pt);
+  }
+\end{tikzpicture}
+\]
+Иными словами, над базой слагаемые в разложении мотива квадрики
+объединяются в пары.
+
+\begin{exercise}
+Пусть $R$~--- коммутативное кольцо, $I\trleq R$~--- идеал, состоящий
+из нильпотентных элементов.
+Тогда любой обратимый элемент $R/I$ поднимается до обратимого элемента в $R$.
+\end{exercise}
+
+Слагаемое, которое дает первый проектор из этих,
+называется \term{мотивом Роста} и обозначается через $R$.
+Таким образом, над замыканием
+$\ol{R} = \mathbb{Z} \oplus \mathbb{Z}\{2^{k-1}-1\}$.
+Мотив квадрики Пфистера, таким образом, составлен
+из сдвигов мотива Роста:
+\[
+M(Q) = R \oplus R\{1\} \oplus \dots \oplus R\{2^{k-1}-1\}.
+\]
+\begin{fact}
+Пусть $\lAngle a_1,\dots,a_k\rAngle$,
+$\lAngle a'_1,\dots,a'_k\rAngle$~--- две $k$-формы Пфистера.
+Соответствующие этим квадрикам мотивы Роста изоморфны (в категории мотивов)
+тогда и только тогда, когда сами формы изоморфны,
+что в свою очередь равносильно равенству чашечных произведений
+$(a_1)\cup\dots\cup(a_k) = (a'_1)\cup\dots\cup(a'_k)$
+в $H^k(F, \mathbb{Z}/2\mathbb{Z})$.
+\end{fact}
+
+\begin{remark}
+Мотив Роста над замыканием превращается в
+$\mathbb{Z} \oplus \mathbb{Z}\{2^{k-1}-1\}$.
+Верно и обратное:
+если мотив над замыканием выглядит так, то это мотив Роста
+(теорема Никиты Семенова).
 \end{remark}
 
 \end{document}
