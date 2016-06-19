@@ -62,6 +62,7 @@
 \DeclareMathOperator{\pr}{pr}
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\Trd}{Trd}
 
 %\DeclareFontFamily{OT1}{pzc}{}
 %\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.2] pzcmi7t}{}
@@ -81,6 +82,8 @@
 \newtheorem{theorem}{Теорема}[subsection]
 \newtheorem{lemma}[theorem]{Лемма}
 \newtheorem{proposition}[theorem]{Утверждение}
+\newtheorem{corollary}[theorem]{Следствие}
+\newtheorem{conjecture}[theorem]{Гипотеза}
 
 \theoremstyle{definition}
 \newtheorem{example}[theorem]{Пример}
@@ -2556,4 +2559,430 @@ $\mathbb{Z} \oplus \mathbb{Z}\{2^{k-1}-1\}$.
 (теорема Никиты Семенова).
 \end{remark}
 
+% 02.04.2012
+
+\subsection{Пример: $\mathsf{F}_4$}
+
+Над замкнутым полем группа типа $\mathsf{F}_4$~--- это автоморфизмы
+эрмитовых матриц $3\times 3$ над октонионами:
+$\mathsf{F}_4 = \Aut(H_3(\mathbb{O}))$.
+
+В общем случае приведем сначала <<конструкцию по модулю $2$>>.
+Вместо $\mathbb{O}$ нужно взять другие октонионы
+(они задатся формой Пфистера $\lAngle a,b,c\rAngle$),
+и диагональную эрмитову форму вида $\la 1, -d, -e\ra$.
+Здесь $a,b,c,d,e\in F^* / (F^*)^2$.
+Если у поля $F$ нет расширений нечетной степени, то любая группа
+типа $\mathsf{F}_4$ так выглядит.
+
+Например, над $\mathbb{R}$ есть три группы типа $\mathsf{F}_4$:
+\begin{enumerate}
+\item построенная по расщепимым октонионам (и тогда неважно, каковы $d,e$);
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\draw (1)--(2);
+\draw (3)--(4);
+\draw (2) edge[transform canvas={yshift=2pt}] (3);
+\draw (2) edge[transform canvas={yshift=-2pt}] (3);
+\draw ($\sm*(2.0, 0.2)$) -- ($\sm*(2.2, 0)$) -- ($\sm*(2.0, -0.2)$);
+\foreach \point in
+{1,2,3,4}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+\]
+\item построенная по компактным октонионам (\term{октавам}) и $d=e=1$;
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\draw (1)--(2);
+\draw (3)--(4);
+\draw (2) edge[transform canvas={yshift=2pt}] (3);
+\draw (2) edge[transform canvas={yshift=-2pt}] (3);
+\draw ($\sm*(2.0, 0.2)$) -- ($\sm*(2.2, 0)$) -- ($\sm*(2.0, -0.2)$);
+\foreach \point in
+{1,2,3,4}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\draw [black] (4) circle (5.0pt);
+\end{tikzpicture}
+\]
+\item построенная по октавам и $d = e = -1$~--- она анизотропна
+(над $\mathbb{R}$ это равносильно компактности).
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\draw (1)--(2);
+\draw (3)--(4);
+\draw (2) edge[transform canvas={yshift=2pt}] (3);
+\draw (2) edge[transform canvas={yshift=-2pt}] (3);
+\draw ($\sm*(2.0, 0.2)$) -- ($\sm*(2.2, 0)$) -- ($\sm*(2.0, -0.2)$);
+\foreach \point in
+{1,2,3,4}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\end{tikzpicture}
+\]
+\end{enumerate}
+
+По общей теории скрученных форм над любым полем
+группа типа $\mathsf{F}_4$~--- это группа автоморфизмов
+алгебры $J$, где $J$~--- скрученная
+форма йордановой алгебры $H_3(\mathbb{O})$.
+
+Приведем теперь <<конструкцию по модулю $3$>>.
+Пусть $D$~--- центральная простая алгебра степени $3$.
+Они все циклические, поэтому
+$D = (a,b)_3 = \la x,y\mid x^3 = a,\; y^3 = b,\; xy = \zeta yx\ra$
+для некоторых $a,b\in F^*/(F^*)^3$.
+Здесь $\zeta^3 = 1$.
+Возьмем еще $c\in F^*/(F^*)^2$.
+тогда на $D\oplus D\oplus D$ можно завести структуру йордановой
+алгебры $J(a,b,c)$ (с помощью скаляра $c$).
+Ее норма выглядит так:
+\[
+N(\alpha\oplus\beta\oplus\gamma) = \Nrd(\alpha) + c\Nrd(\beta)
++ c^{-1}\Nrd(\gamma) - \Trd(\alpha\beta\gamma),
+\]
+где $\Trd$~--- приведенный след.
+Автоморфизмы этой нормы образуют группу типа $\mathsf{E}_6$,
+а подгруппа в ней, сохраняющая
+единицу (то есть, $1\oplus 0 \oplus 0$)~--- это группа типа
+$\mathsf{F}_4$.
+
+\begin{conjecture}[Ослабленный вариант гипотезы Серра--Роста]
+Полученная группа типа $\mathsf{F}_4$ зависит только
+от $\{a,b,c\} \in K_3^M(F)/3$
+(или, что то же самое, от
+$(a)\cup (b)\cup (c) \in H^3(F,\mathbb{Z}/3\mathbb{Z})$).
+\end{conjecture}
+Известно, что если $J(a,b,c) = J(a',b',c')$, то
+$\{a,b,c\} = \{a',b',c'\}$.
+
+Если у поля нет квадратичных расширений, то любая скрученная
+форма $H_3(\mathbb O)$ имеет вид
+$J(a,b,c)$.
+
+Для любого поля $F$ определен инвариант
+\[
+g_3\colon H^1(F, \mathsf{F}_4) \to H^3(F, \mathbb{Z}/3\mathbb{Z}).
+\]
+\begin{itemize}
+\item Если у $F$ нет квадратичных расширений, то образ $g_3$~--- это
+в точности чистые символы $(a)\cup (b)\cup (c)$.
+\item В этом случае ядро тривиально.
+\item Гипотеза состоит в том, что $g_3$ инъективно.
+\end{itemize}
+Мы построили алгебру $J(a,b,c)$ и группу $G = \Aut(J(a,b,c))$.
+\begin{fact}
+Группа $G$ или расщепима, или анизотопна (как и в случае группы
+изометрий пфистеровых форм).
+\end{fact}
+В частности, если $X$~--- $G$-однородное проективное многообрази,
+то оно является клеточным над общей точкой,
+то есть, $X_{F(X)}$ клеточное.
+Пусть $X$~--- скрученная форма $\mathsf{F}_4/P_4$.
+
+Отступление: J.-P. Bonnet показал, что
+$M({}_{\xi}(\mathsf{G}_2/P_1)) \isom M({}_{\xi}(\mathsf{G}_2/P_2))$.
+Многообразия $\mathsf{G}_2/P_1$ и $\mathsf{G}_2/P_2$
+оба имеют размерность $5$.
+На самом деле, $\mathsf{G}_2/P_1$~--- квадрика.
+Более того, это максимальный сосед квадрики Пфистера, и поэтому
+ее мотив раскладывается на мотивы Роста.
+Напомним, что $\mathsf{G}_2 = \Aut(\mathbb{O})$,
+где $\mathbb{O}$ задается формой $\lAngle a, b, c\rAngle$.
+Возникающий мотив Роста отвечает как раз квадрике
+$\lAngle a, b, c\rAngle$.
+Вопрос: что если взять $\mathsf{F}_4/P_1$ и $\mathsf{F}_4/P_4$?
+У них тоже одинаковая размерность и многочлен Пуанкаре.
+Теорема Зайнуллина--Николенко--Семенова гласит,
+что
+$M({}_{\xi}(\mathsf{F}_4/P_1)) \isom M({}_{\xi}(\mathsf{F}_4/P_2))$,
+если рассматриваемая группа типа $\mathsf{F}_4$ имеет вид
+$\Aut(J(a,b,c))$.
+
+Размерность $\mathsf{F}_4/P_4$ равна $15$.
+Нарисуем диаграмму Хассе для этого многообразия.
+С точностью до каких-то ребер внутри она выглядит так:
+\[
+\begin{tikzpicture}[scale=1.0,thin,font=\scriptsize]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\coordinate (5) at ($\sm*(5.2, 1)$);
+\coordinate (6) at ($\sm*(6.6, 1)$);
+\coordinate (7) at ($\sm*(8.0, 1)$);
+\coordinate (8) at ($\sm*(9.4, 1)$);
+\coordinate (9) at ($\sm*(10.8, 1)$);
+\coordinate (10) at ($\sm*(12.2, 1)$);
+\coordinate (11) at ($\sm*(13.6, 1)$);
+\coordinate (12) at ($\sm*(15.0, 1)$);
+\coordinate (5x) at ($\sm*(5.2, -1)$);
+\coordinate (6x) at ($\sm*(6.6, -1)$);
+\coordinate (7x) at ($\sm*(8.0, -1)$);
+\coordinate (8x) at ($\sm*(9.4, -1)$);
+\coordinate (9x) at ($\sm*(10.8, -1)$);
+\coordinate (10x) at ($\sm*(12.2, -1)$);
+\coordinate (11x) at ($\sm*(13.6, -1)$);
+\coordinate (12x) at ($\sm*(15.0, -1)$);
+\coordinate (13) at ($\sm*(16.0, 0)$);
+\coordinate (14) at ($\sm*(17.4, 0)$);
+\coordinate (15) at ($\sm*(18.8, 0)$);
+\coordinate (16) at ($\sm*(20.2, 0)$);
+\node at ($\sm*(0, -2)$) {$0$};
+\node at ($\sm*(1.4, -2)$) {$1$};
+\node at ($\sm*(2.8, -2)$) {$2$};
+\node at ($\sm*(4.2, -2)$) {$3$};
+\node at ($\sm*(5.2, -2)$) {$4$};
+\node at ($\sm*(6.6, -2)$) {$5$};
+\node at ($\sm*(8.0, -2)$) {$6$};
+\node at ($\sm*(9.4, -2)$) {$7$};
+\node at ($\sm*(10.8, -2)$) {$8$};
+\node at ($\sm*(12.2, -2)$) {$9$};
+\node at ($\sm*(13.6, -2)$) {$10$};
+\node at ($\sm*(15.0, -2)$) {$11$};
+\node at ($\sm*(16.0, -2)$) {$12$};
+\node at ($\sm*(17.4, -2)$) {$13$};
+\node at ($\sm*(18.8, -2)$) {$14$};
+\node at ($\sm*(20.2, -2)$) {$15$};
+\node at (2) [above=3pt] {$h$};
+\node at (3) [above=3pt] {$h^2$};
+\node at (4) [above=3pt] {$h^3$};
+\node at (5) [above=3pt] {$\rho$};
+\node at (9) [above=3pt] {$\rho^2$};
+\draw (1)--(2)--(3)--(4)--(5)--(6)--(7)--(8)--(9)--(10)--(11)--(12)--(13)--(14)--(15)--(16);
+\draw (4)--(5x)--(6x)--(7x)--(8x)--(9x)--(10x)--(11x)--(12x)--(13);
+\foreach \point in
+{1,2,3,4,5,6,7,8,9,10,11,12,5x,6x,7x,8x,9x,10x,11x,12x,13,14,15,16}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\end{tikzpicture}
+\]
+
+\begin{enumerate}
+\item Берем образующую в $\CH^1(\mathsf{F}_4/P_4)$.
+Она рациональная, то есть, лежит в образе отображения
+\[
+\CH^1({}_{\xi}(\mathsf{F}_4/P_4)) \xrightarrow{\res}
+\CH^1(\mathsf{F}_4/P_4).
+\]
+В $\mathsf{F}_4$ решетка весов совпадает с решеткой корней.
+В частности, $\varpi_4$~--- корень.
+\item Тогда $h^2$, $h^3$~--- образующие $\CH^2$ и $\CH^3$.
+\item Далее, $h^4$ и $\rho$~--- базис для $\CH^4$.
+\item Кроме того, $\rho^2 h^7 = [\pt]\pmod{3}$.
+\item $X_{F(X)}$ клеточное.
+\item Если $\Aut(J(a,b,c))$ расщепляется над расширением
+степени, взаимно простой с $3$, то она и была расщепимой
+(это теорема типа Спрингера).
+\end{enumerate}
+
+Начинаем применять метод общей точки:
+\[
+\begin{tikzcd}
+\CH^*(X\times X) \arrow[->>]{r} \arrow{d}{\res} &
+\CH^*(X_{F(X)}) \arrow{d}{\isom} \\
+\CH^*(X_{\ol{F}}\times X_{\ol{F}}) \arrow[->>]{r} &
+\CH^*(X_{\ol{F}(X)}).
+\end{tikzcd}
+\]
+Элемент $\ol{\rho}\in\CH^*(X_{\ol{F}(X)})$ поднимается
+до элемента в $\CH^*(X\times X)$.
+Поэтому в $\CH^*(X_{\ol{F}}\times X_{\ol{F}})$ есть
+рациональный элемент вида
+\[
+\alpha = \rho\times 1 + ? \cdot h^3\times h
++ ?\cdot h^2\times h^2 + ?\cdot h\times h^3
++ ?\cdot 1\times h^4 + c\cdot 1\times \rho.
+\]
+Подправив $\alpha$ на рациональные элементы (степени $h$),
+можно добиться, что останется только
+$\rho\times 1 + c\cdot 1\times\rho$.
+Поскольку $X$ над кубическим расширением становится клеточным,
+можно считать, что $c = 0$ или $c = \pm 1$.
+Почему $c\neq 0$?
+Если $\rho\times 1$ рационален, то и $1\times\rho$ рационален,
+откуда $\rho^2\times\rho^2$ и $h^7\rho^2\times h^7\rho^2$
+рационален, а потому и $\pt\times\pt$ рационален.
+Применяя пушфорвард, видим, что класс
+$\pt\in\CH^*(X)$ рационален~--- противоречие.
+
+Поэтому на самом деле класс $\rho\times 1\pm 1\times\rho$
+рационален.
+Значит, $\rho^2\times 1 \pm 2\rho\times\rho + 1\times\rho^2$
+рационален, а потому и
+$\beta = \rho^2 + 1 \mp \rho\times\rho + 1\times\rho^2$
+рационален.
+Будем умножать полученный цикл на $h^i\times h^j$,
+где $i+j=7$.
+Получится цикл
+\[
+h^i\rho^2\times h^j \mp h^i\rho\times h^j\rho
++h^i\times h^j\rho^2\in\CH^{15}(X_{\ol{F}}\times X_{\ol{F}}).
+\]
+Возьмем его композицию с самим собой, и воспользуемся сравнением.
+$h^{i+j}\rho^2 \equiv \pt \pmod{3}$.
+Вообще, будем считать все по модулю $3$:
+\[
+h^i\rho^2\times h^j + h^i\rho\times h^j\rho + h^i\times h^j\rho^2
+\]
+Значит, этот цикл уже является проектором по модулю $3$.
+Над замыканием каждое его слагаемое, конечно, является проектором~---
+но не рациональным.
+
+Итак, мы получили восемь ортогональных проекторов
+$p_0,\dots,p_7$.
+Правые части этих проекторов (24 штуки) образуют базис в группе Чжоу,
+но не тот, который у нас был раньше (клетки Шуберта).
+\[
+\begin{tikzpicture}[scale=1.0,thin,font=\scriptsize]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\coordinate (5) at ($\sm*(5.2, 1)$);
+\coordinate (6) at ($\sm*(6.6, 1)$);
+\coordinate (7) at ($\sm*(8.0, 1)$);
+\coordinate (8) at ($\sm*(9.4, 1)$);
+\coordinate (9) at ($\sm*(10.8, 1)$);
+\coordinate (10) at ($\sm*(12.2, 1)$);
+\coordinate (11) at ($\sm*(13.6, 1)$);
+\coordinate (12) at ($\sm*(15.0, 1)$);
+\coordinate (5x) at ($\sm*(5.2, -1)$);
+\coordinate (6x) at ($\sm*(6.6, -1)$);
+\coordinate (7x) at ($\sm*(8.0, -1)$);
+\coordinate (8x) at ($\sm*(9.4, -1)$);
+\coordinate (9x) at ($\sm*(10.8, -1)$);
+\coordinate (10x) at ($\sm*(12.2, -1)$);
+\coordinate (11x) at ($\sm*(13.6, -1)$);
+\coordinate (12x) at ($\sm*(15.0, -1)$);
+\coordinate (13) at ($\sm*(16.0, 0)$);
+\coordinate (14) at ($\sm*(17.4, 0)$);
+\coordinate (15) at ($\sm*(18.8, 0)$);
+\coordinate (16) at ($\sm*(20.2, 0)$);
+\draw (1)--(2)--(3)--(4)--(5)--(6)--(7)--(8)--(9)--(10)--(11)--(12)--(13)--(14)--(15)--(16);
+\draw (4)--(5x)--(6x)--(7x)--(8x)--(9x)--(10x)--(11x)--(12x)--(13);
+\draw[dotted] (1) edge[bend left=45] (5);
+\draw[dotted] (5) edge[bend left=45] (9);
+\draw[dotted] (2) edge[bend left=45] (6);
+\draw[dotted] (6) edge[bend left=45] (10);
+\node at ($\sm*(1,1)$) {$p_0$};
+\node at ($\sm*(2.4,1)$) {$p_1$};
+\foreach \point in
+{1,2,3,4,5,6,7,8,9,10,11,12,5x,6x,7x,8x,9x,10x,11x,12x,13,14,15,16}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+
+\end{tikzpicture}
+\]
+Можно также рассмотреть $\beta(h^i\times h^j)$ для произвольных
+$i,j$.
+Такие рациональные циклы индуцируют изоморфизмы
+между $(X,p_0)\{i\}$ и $(X,p_i)$.
+
+Мы посчитали все по модулю $3$, но можно добиться и
+целочисленных проекторов.
+На самом деле, при каких-то разумных условиях всегда можно
+поднять проекторы (и изоморфизмы) по модулю $2$ и $3$
+до целочисленных.
+
+Мотив Роста квадрики Пфистера $\lAngle a_1,\dots,a_k\rAngle$
+обозначается так: $R_{2,k}(\{a_1,\dots,a_k\})$.
+Полученный выше мотив $(X,p_0)$ будем обозначать через
+$R_{3,3}(\{a,b,c\})$.
+
+\begin{corollary}
+\[
+M(X) = \bigoplus_{i=0}^{7} R_{3,3}(\{a,b,c\})\{i\}.
+\]
+\end{corollary}
+
+\begin{remark}
+Точно так же доказывается, что
+\[
+M({}_{\xi}(\mathsf{F}_4/P_1)) = \bigoplus_{i=0}^{7}
+R_{3,3}(\{a,b,c\})\{i\}.
+\]
+Более того, мотив любого $G$-однородного проективного
+многообразия $Y$ раскладывается в сумму сдвигов
+мотива $R_{3,3}(\{a,b,c\})$.
+Для квадрики Пфистера верно аналогичное замечание.
+\end{remark}
+
+\begin{theorem}[Зайнуллин--Петров--Семенов]
+Пусть $G$~--- полупростая алгебраическая группа над $F$,
+$X$~--- $G$-однородное проективное многообразие, клеточное
+над общей точкой, $p$~--- простое число.
+Тогда мотив $M(X)\otimes\mathbb{Z}/p\mathbb{Z}$ изоморфен
+сумме $R_p(G)$ с какими-то сдвигами,
+где $R_p(G)$ не зависит от $X$ и неразложим по модулю $p$.
+\end{theorem}
+Нужно пояснить, что такое $M(X)\otimes\mathbb{Z}/p\mathbb{Z}$:
+в конструкции категории соответствий нужно взять
+$\Mor(X,Y) = \CH^{\dim Y}(X\times Y) / p$.
+
+\begin{remark}
+Условие клеточности $X_{F(X)}$ можно заменить
+на требование расщепимости $G_{F(X)}$.
+\end{remark}
+\begin{remark}
+Мотив $R_p(G)$ над алгебраическим замыканием раскладывается
+в сумму мотивов вида $\mathbb{Z}/p = M(\pt)\otimes\mathbb{Z}/p$
+со сдвигами, и для этих сдвигов есть некоторая формула.
+\end{remark}
+\begin{remark}
+Все ситуации, описанные в теореме, перечислены в работе
+Петрова--Семенова.
+\end{remark}
+\begin{remark}
+Сами проекторы можно поднять в $\mathbb{Z}$, но не изоморфизмы
+между ними.
+\end{remark}
+\begin{remark}
+Если $G$ не содержит сомножителей типа $\mathsf{A}$
+и $p\neq 2,3,5$, то $R_p(G) = \mathbb{Z}/p$.
+Случай $p=5$ возникает только для $\mathsf{E}_8$.
+\end{remark}
+\begin{remark}
+Мотив $M(X)\otimes\mathbb{Q}$ раскладывается в
+прямую сумму мотивов $M(\pt)\otimes\mathbb{Q}$ со сдвигами.
+\end{remark}
+\begin{remark}
+Если $G=\mathsf{E}_8$, $p=2$, и инвариант Роста
+тривиален, то все $G$-однородные проективные многообразия $X$
+подходят.
+В этом случае $R_2(G)$~--- мотив Роста,
+отвечающий $5$-символу (см. работу Никиты Семенова
+про конечные подгруппы $\mathsf{E}_8$).
+\end{remark}
+
 \end{document}
+
