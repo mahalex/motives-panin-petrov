@@ -64,6 +64,7 @@
 \DeclareMathOperator{\res}{res}
 \DeclareMathOperator{\Trd}{Trd}
 \DeclareMathOperator{\sing}{sing}
+\DeclareMathOperator{\Bl}{Bl}
 
 %\DeclareFontFamily{OT1}{pzc}{}
 %\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.2] pzcmi7t}{}
@@ -2938,7 +2939,7 @@ R_{3,3}(\{a,b,c\})\{i\}.
 Для квадрики Пфистера верно аналогичное замечание.
 \end{remark}
 
-\begin{theorem}[Зайнуллин--Петров--Семенов]
+\begin{theorem}[Зайнуллин--Петров--Семенов]\label{thm:ZPS}
 Пусть $G$~--- полупростая алгебраическая группа над $F$,
 $X$~--- $G$-однородное проективное многообразие, клеточное
 над общей точкой, $p$~--- простое число.
@@ -3252,6 +3253,527 @@ P(R_2({}_{\xi}G), t) = \frac{1-t^{2\cdot 15}}{1-t^{15}} = 1 + t^{15},
 что это и есть мотив Роста.
 Получается некоторый инвариант в $H^5(F,\mathbb{Z}/2)$.
 \end{example}
+
+% 16.04.2012
+
+\subsection{Набросок доказательства теоремы~\ref{thm:ZPS}}
+
+Во-первых, нам понадобится <<теорема Крулля--Шмидта>>.
+О какой категории идет речь?
+Зафиксируем ${}_{\xi}G$ и рассмотрим категорию мотивов
+по модулю простого числа $p$, а в ней~--- псевдоабелеву
+подкатегорию, порожденную мотивами ${}_{\xi}G$-однородных
+многообразий.
+То есть, мы берем замыкание относительно взятия прямых слагаемых и
+свдигов (и тензорных произведений, хотя это не важно).
+
+\begin{theorem}[Черноусов--Меркурьев]\label{thm:ChM}
+В этой категории выполнена теорема Крулля--Шмидта:
+если есть разложение объекта в прямую сумму неразложимых,
+то оно единственно.
+\end{theorem}
+Пусть теперь $X,Y$~--- проективные однородные многообразия,
+$X\xrightarrow{f} Y$~--- локально (по Зарискому) тривиальное
+расслоение с клеточным слоем $F$.
+В силу клеточности $F$, его мотив раскладывается в
+сумму сдвигов мотивов Тейта:
+\[
+M(F) = \bigoplus\mathbb{Z}\{i\}.
+\]
+Тогда $M(X) = M(Y)\otimes M(F) = \bigoplus M(Y)\{i\}$.
+Поэтому, в частности,
+$\CH(X) = \CH(Y)\otimes\CH(F)$ как $\CH(Y)$-модуль.
+Это можно понять явно:
+если наше расслоение тривиализуется над $U\subseteq Y$,
+то морфизм $U\times F \to U$ дает нам возможность
+по элементу $a\in\CH^*(F)$ построить
+цикл $1\times a$ и рассмотреть его замыкание в $X$.
+Такие замыкания как раз и образуют $\CH(Y)$-базис в $\CH(X)$,
+если в качестве $a$ брать элементы базиса $\CH(F)$.
+
+Пусть теперь $X$~--- ${}_{\xi}G$-однородное проективное
+многообразие: $X = {}_{\xi}(G/P)$.
+Рассмотрим расслоение
+${}_{\xi}(G/b) \to X$ со слоем $P/B$.
+Над $F(X)$ наш торсор становится тривиальным,
+поэтому расслоение выглядит как $G/B \to G/P$.
+Оно локально тривиально по Зарискому, поэтому
+это верно и над некоторым открытым $U\subseteq X$.
+Теперь мы можем подействовать группой $G$ и покрыть все $X$
+такими открытыми.
+Значит, все отображение локально тривиально по Зарискому.
+По теореме~\ref{thm:ChM} $M({}_{\xi}(G/B)) = M(X)\otimes M(P/B)$.
+Поэтому, если $M({}_{\xi}(G/B))\otimes(\mathbb{Z}/p)$
+раскладывается в сумму сдвигов $R_p(\xi)$, то и $M(X)$
+тоже (по теореме Крулля--Шмидта).
+
+Значит, достаточно для случая $X = {}_{\xi}(G/B)$ доказать,
+что $M(X)\otimes(\mathbb{Z}/p)$ раскладывается в сумму
+неразложимых кусков $R_p(\xi)$ со сдвигами.
+Рассмотрим коммутативную диаграмму
+\[
+\begin{tikzcd}
+\CH^*(BB)/p \arrow{r} \arrow[equal]{d}
+& \CH^*({}_{\xi}(G/B))/p \arrow[->>]{r} \arrow{d}
+& \CH^*(\xi)/p \arrow{d} \\
+\CH^*(BB)/p \arrow{r}
+& \CH^*(G/B)/p \arrow[->>]{r}
+& \CH^*(G)/p.
+\end{tikzcd}
+\]
+\begin{enumerate}
+\item
+Мы знаем, что над замыканием
+$\CH^*(G)/p = (\mathbb{Z}/p)[x_1,\dots,x_r] / (x_i^{p^{k_i}})$,
+и образ $\CH^*(BB)/p$ в $\CH^*(G/B)/p$
+состоит из рациональных циклов.
+Обозначим через $e_i$ любой прообраз элемента $x_i$.
+\item Из определения $J_p(\xi) = (j_1,\dots,j_r)$ мы знаем,
+что $e_i^{p^{j_i}} + \mbox{добавка}$~--- тоже рациональный цикл.
+У $\CH^*(G/B)/p$ как $\CH^*(BB)/p$-модуля есть система образующих
+(точнее, базис над образом $\CH^*(BB)/p$), состоящая
+из элементов вида $e^I=e_1^{j_1}\dots e_r^{i_r}$,
+где $I = (i_1,\dots,i_r)$, и $0\leq I \leq p^K-1$
+(то есть, $0\leq i_m \leq p^{k_m}-1$ для всех $m$).
+\item Ищем рациональные циклы на $X\times X$ при помощи
+метода общей точки:
+\[
+\begin{tikzcd}
+\CH^*(X\times X) \arrow[->>]{r} \arrow{d}{\res}
+& \CH^*(X_{F(X)}) \arrow{d}{\isom} \\
+\CH^*(G/B\times G/B) \arrow[->>]{r}
+& \CH^*((G/B)_{F(X)}).
+\end{tikzcd}
+\]
+Возьмем какой-нибудь прообраз $\alpha_i\in\CH^*(X\times X)$
+элемента $e_i\in\CH^*((G/B)_{F(X)})$,
+и пусть $\ol{\alpha_i} = \res(\alpha_i)$~--- его образ
+в $\CH^*(G/B\times G/B)$.
+Тогда $\ol{\alpha_i} = e_i \times 1 + \mbox{добавка}$.
+Более аккуратные рассуждения показывают, что
+$\ol{\alpha_i} = e_i \times 1 + (\mbox{добавка}) - 1\times e_i$.
+\item Пусть цикл $a\in\im(\CH^*(BB)/p)$ рационален.
+Можно найти <<двойственный>> к нему
+цикл $\alpha^{\vee} \in\im(\CH^*(BB)/p)$ такой, что
+$\deg(e^{p^k-1}\cdot a \cdot a^{\vee}) = 1$.
+То есть, на  $\im(\CH^*(BB)/p)$ есть невырожденная билинейная
+форма со значениями в $\mathbb Z/p$.
+Тогда цикл
+\[
+q = \alpha^{p^J-1} \cdot
+\left(e^{p^JM}a\times e^{p^J(p^{K-J}-1-M)}a^\vee\right)
+\]
+рационален, поскольку $\alpha^{p^J-1}$ рационален,
+и степени $e^{p^J}$ рациональны (по определению
+$J$-инварианта).
+Нетрудно проверить, что $q$~--- проектор
+(если проигнорировать добавки).
+Построение $q$ зависит от произвольных $M$ и $a$ из образа.
+Если брать все возможные $M$ такие, что $0\leq M \leq p^{K-J}-1$,
+и $a$ из базиса образа, получается
+набор попарно ортогональных проекторов, которые в сумме
+дают диагональ.
+
+Упражнение: некоторая степень любого элемента конечного моноида
+является идемпотентом
+(на самом деле, нужно брать не такую степень, а еще большую
+степень этого, чтобы убить добавки).
+
+Посчитаем $q\cdot q$.
+Можно считать, что $\alpha = e\times 1 - 1\times e$.
+Тогда
+$\alpha^{p^J-1} = \sum_{I} e^I \times e^{p^J-1-I}$,
+и поэтому
+\[
+q = \sum_I e^{p^J M + I} a
+\times e^{p^K-p^J M - 1 - I}a^{\vee}
+= \deg(e^{p^K-1} a a^{\vee})(\dots).
+\]
+\end{enumerate}
+
+\subsection{Группы типа $\mathsf{F}_4$}
+
+Приведем пример многообразия, не расщепимого над общей точкой.
+Будем обозначать расщепимые октонионы через $\mathbb{O}$,
+а их компактную форму (над $\mathbb{R}$) через $C$.
+Напомним, что над $\mathbb{R}$
+бывают такие группы типа $\mathsf{F}_4$:
+\begin{enumerate}
+\item $H_3(\mbox{компактная форма},C)$:
+$\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\draw (1)--(2);
+\draw (3)--(4);
+\draw (2) edge[transform canvas={yshift=2pt}] (3);
+\draw (2) edge[transform canvas={yshift=-2pt}] (3);
+\draw ($\sm*(2.0, 0.2)$) -- ($\sm*(2.2, 0)$) -- ($\sm*(2.0, -0.2)$);
+\foreach \point in
+{1,2,3,4}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\end{tikzpicture}$
+
+\item $H_3(\mathbb{O})$:
+$\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\draw (1)--(2);
+\draw (3)--(4);
+\draw (2) edge[transform canvas={yshift=2pt}] (3);
+\draw (2) edge[transform canvas={yshift=-2pt}] (3);
+\draw ($\sm*(2.0, 0.2)$) -- ($\sm*(2.2, 0)$) -- ($\sm*(2.0, -0.2)$);
+\foreach \point in
+{1,2,3,4}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}$
+
+\item $H_3(\mbox{гиперболическая форма}, C)$:
+$\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\draw (1)--(2);
+\draw (3)--(4);
+\draw (2) edge[transform canvas={yshift=2pt}] (3);
+\draw (2) edge[transform canvas={yshift=-2pt}] (3);
+\draw ($\sm*(2.0, 0.2)$) -- ($\sm*(2.2, 0)$) -- ($\sm*(2.0, -0.2)$);
+\foreach \point in
+{1,2,3,4}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\draw [black] (4) circle (5.0pt);
+\end{tikzpicture}
+$
+\end{enumerate}
+Что нарисовано в последнем случае?
+Существует поле $F$ (например, $F=\mathbb{R}$) и группа типа
+$\mathsf{F}_4$ над ним такие, что параболическая подгруппа
+типа $P_4$ определена над $\mathbb{R}$, а остальные~--- нет.
+Пусть $\xi\in H^1(F,\mathsf{F}_4)$~--- коцикл,
+$X = {}_{\xi}(\mathsf{F}_4/P_4)$.
+Тогда $\xi_{F(X)}$ может дать группу с индексом
+$\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\draw (1)--(2);
+\draw (3)--(4);
+\draw (2) edge[transform canvas={yshift=2pt}] (3);
+\draw (2) edge[transform canvas={yshift=-2pt}] (3);
+\draw ($\sm*(2.0, 0.2)$) -- ($\sm*(2.2, 0)$) -- ($\sm*(2.0, -0.2)$);
+\foreach \point in
+{1,2,3,4}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\draw [black] (4) circle (5.0pt);
+\end{tikzpicture}$.
+По модулю $2$ есть два инварианта:
+\begin{itemize}
+\item $f_3\colon H^1(F, \mathsf{F}_4) \to H^3(F, \mathbb{Z}/2)$;
+\item $f_5\colon H^1(F, \mathsf{F}_4) \to H^5(F, \mathbb{Z}/2)$.
+\end{itemize}
+Если у поля нет расширений нечетной степени, то это чистые формы.
+Поэтому есть $3$-кратная и $5$-кратная формы Пфистера,
+ассоциированные с $\xi$.
+
+Пусть $J$~--- 27-мерная йорданова алгебра.
+Предполагаем, что она приведенная (reduced).
+Наш коцикл $\xi\in H^1(F,\mathsf{F}_4)$
+удовлетворяет следующим равносильным условиям:
+\begin{enumerate}
+\item 
+Каноническое отображение $H^1(F,\mathsf{F}_4) \to H^1(F,\mathsf{E}_6)$
+переводит наш коцикл $\xi$
+в изотропную группу с индексом Титса
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\draw (1)--(3)--(4)--(5)--(6);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\draw [black] (1) circle (5.0pt);
+\draw [black] (6) circle (5.0pt);
+\end{tikzpicture}
+\]
+\item $g_3(\xi)=0$, где
+$g_3\colon H^1(F,\mathsf{F}_4) \to H^3(F,\mu_3^{\otimes 2})$.
+Этого всегда можно добиться кубическим расширением;
+а если нет расширений нечетной степени, то это заведомо так.
+\item Пусть $Q_x(y) = xyx$~--- квадратичная операция в $J$.
+Элемент $e\in J$ называется \term{идемпотентом ранга $1$},
+если $Q_e(J)\leq Fe$. Это равносильно тому, что
+$N(e)=0$ и $e^{\sharp}=0$ (или тому, что $N(e,e,x)=0$ для всех
+$x\in J$).
+Рассмотрим многообразие
+\[
+\{\la e\ra \mid e\mbox{ --- идемпотент ранга $1$}\} =
+{}_{\xi}(\mathsf{E}_6/P_6).
+\]
+Условие состоит в том, что у него есть рациональная точка.
+\end{enumerate}
+Поэтому внутри ${}_{\xi}(\mathsf{E}_6/P_6)$ есть $\mathbb{G}_m$,
+которая дает разложение вида
+$J = Fe\oplus U\oplus V$ по весовым пространствам $\mathbb{G}_m$.
+При этом $\dim U = 16$, $\dim V = 10$.
+Будем записывать элементы $J$ как тройки
+вида $(\alpha,b,c)$ в соответствии с этим разложением.
+Заметим, что ${}_{\xi}(\mathsf{E}_6/P_6)$~--- замкнутое
+подмногообразие в $\mathbb{P}(J)$.
+Следующая фильтрация будет $\Spin_{10}$-инвариантной:
+\[
+\begin{tikzcd}[column sep=0.4em]
+{}_{\xi}(\mathsf{E}_6/P_6)
+& \arrow{d}{\mathbb{A}^{16}}
+& \{\alpha=0\} \arrow[left hook->]{ll}
+& \arrow{d}{\mathbb{A}^{5}}
+& \{\alpha=0,b=0\} = \Spin_{10}/P_1\arrow[left hook->]{ll} \\
+& \{b=0,c=0\} = \pt
+&
+& \{\alpha=0,c=0\} = \Spin_{10}/P_5
+\end{tikzcd}
+\]
+Можно начать с другого конца и получить такую фильтрацию:
+\[
+\begin{tikzcd}[column sep=0.4em]
+{}_{\xi}(\mathsf{E}_6/P_6)
+& \arrow{d}\mathbb{A}^{8}
+& \{c=0\} \arrow[left hook->]{ll}
+& \arrow{d}\mathbb{A}^{1}
+& \{c=0,b=0\} = \pt \arrow[left hook->]{ll} \\
+& \{b=0,\alpha=0\} = \Spin_{10}/P_1
+&
+& \{c=0,\alpha=0\} = \Spin_{10}/P_5
+\end{tikzcd}
+\]
+Кстати, $\Spin_{10}/P_1$~--- это восьмимерная пфистерова квадрика,
+которая и дает отображение $f_3$.
+
+Если у ${}_{\xi}(\mathsf{E}_6/P_6)$ есть рациональная точка,
+то есть большая клетка, и оно бирационально эквивалентно
+проективному пространству:
+\begin{eqnarray*}
+{}_{\xi}(\mathsf{E}_6/P_6) & \dashrightarrow
+& \mathbb{P}(Fe\oplus U),\\
+{}[\alpha:b:c] & \mapsto & [\alpha:b],\\
+{}[\alpha^2:\alpha b:Q_b(e)] & \mapsfrom & [\alpha:b].
+\end{eqnarray*}
+Локус стрелки $[\alpha:b:c]\mapsto [\alpha:b]$~--- восьмимерная
+квадрика.
+Локус стрелки $[\alpha:b]\mapsto [\alpha^2:\alpha b:Q_b(e)]$~---
+это $\{\alpha=0, Q_b(e)=0\} = \Spin_{10}/P_5$~--- скрученная
+форма максимального ортогонального грассманиана.
+
+Многообразие ${}_{\xi}(\mathsf{F}_4/P_4)$ живет внутри
+${}_{\xi}(\mathsf{E}_6/P_6)$ как гиперплоское сечение
+вида $\alpha + t(c) = 0$, где $t$~--- линейная форма на $V$
+(напомним, что $\dim V = 10$).
+Давайте пересечем все с этим уравнением.
+Получим бирациональное отображение
+\[
+{}_{\xi}(\mathsf{F}_4/P_4) \dashrightarrow Q.
+\]
+Локус слева~--- семимерная квадрика $\Spin_9/P_1$.
+Локус справа~--- пятнадцатимерная квадрика
+$\{\alpha^2 + t(Q_b(e)) = 0\} = \Spin_{10}/P_5 = \Spin_9 / P_4$.
+Здесь $Q$~--- норменная квадрика:
+мы начали с формы Пфистера $\lAngle a,b,c,d,e\rAngle$.
+Семнадцатимерная
+квадратичная форма $\la a\ra\perp \lAngle b,c,d,e\rAngle$~---
+инвариант этой формы.
+Ассоциированная с ней пятнадцатимерная квадрика и есть $Q$.
+
+Что дальше?
+Оказывается, $\Bl_{\Spin_9/P_1}({}_{\xi}(\mathsf{F}_4/P_4)) \isom
+\Bl_{\Spin_9/P_4}(Q)$.
+Для мотива раздутия есть формула вида
+\[
+M(\Bl_X(Y)) = M(Y) \oplus ( M(X)\otimes M(\mathbb{P}(N_XY))\{\dots\}).
+\]
+Мотив норменной квадрики раскладывается в один экземпляр
+мотива Роста $R(\lAngle a,b,c,d,e\rAngle)$ (он как раз
+пятнадцатимерный) и $R(\lAngle b,c,d,e\rAngle)$
+в нужном количестве (7 штук):
+\[
+\begin{tikzpicture}[scale=1.0,thin,font=\scriptsize]
+\def\sm{0.7}
+\coordinate (0) at ($\sm*(0, 0)$);
+\coordinate (1) at ($\sm*(1.4, 0)$);
+\coordinate (2) at ($\sm*(2.8, 0)$);
+\coordinate (3) at ($\sm*(4.2, 0)$);
+\coordinate (4) at ($\sm*(5.6, 0)$);
+\coordinate (5) at ($\sm*(7.0, 0)$);
+\coordinate (6) at ($\sm*(8.4, 0)$);
+\coordinate (7) at ($\sm*(9.8, 0)$);
+\coordinate (8) at ($\sm*(11.2, 0)$);
+\coordinate (9) at ($\sm*(12.6, 0)$);
+\coordinate (10) at ($\sm*(14.0, 0)$);
+\coordinate (11) at ($\sm*(15.4, 0)$);
+\coordinate (12) at ($\sm*(16.8, 0)$);
+\coordinate (13) at ($\sm*(18.2, 0)$);
+\coordinate (14) at ($\sm*(19.6, 0)$);
+\coordinate (15) at ($\sm*(21.0, 0)$);
+\coordinate (p1) at ($\sm*(6.8, 1)$);
+\coordinate (p2) at ($\sm*(7.0, 1)$);
+\coordinate (p3) at ($\sm*(7.2, 1)$);
+\coordinate (p4) at ($\sm*(15.2, 1)$);
+\coordinate (p5) at ($\sm*(15.4, 1)$);
+\coordinate (p6) at ($\sm*(15.6, 1)$);
+\draw (0)--(1)--(2)--(3)--(4)--(5)--(6)--(7)--(8)--(9)--(10)--(11)--(12)--(13)--(14)--(15);
+\draw[dashed] (0) edge[bend left=45](15);
+\draw[dotted] (1) edge[bend left=35](8);
+\draw[dotted] (2) edge[bend left=35](9);
+\draw[dotted] (7) edge[bend left=35](14);
+\node at (0) [below=5pt] {$0$};
+\node at (1) [below=5pt] {$1$};
+\node at (2) [below=5pt] {$2$};
+\node at (3) [below=5pt] {$3$};
+\node at (4) [below=5pt] {$4$};
+\node at (5) [below=5pt] {$5$};
+\node at (6) [below=5pt] {$6$};
+\node at (7) [below=5pt] {$7$};
+\node at (8) [below=5pt] {$8$};
+\node at (9) [below=5pt] {$9$};
+\node at (10) [below=5pt] {$10$};
+\node at (11) [below=5pt] {$11$};
+\node at (12) [below=5pt] {$12$};
+\node at (13) [below=5pt] {$13$};
+\node at (14) [below=5pt] {$14$};
+\node at (15) [below=5pt] {$15$};
+\foreach \point in
+{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{p1,p2,p3,p4,p5,p6}
+  {
+     \fill [black] (\point) circle (0.7pt);
+  }
+\end{tikzpicture}
+\]
+Мотив норменной квадрики $\Spin_9/P_1$ раскладывается
+в $R(\lAngle b,c,d,e\rAngle)$ (1 штука) и мотивы Роста,
+соответствующие $f_3$.
+Многообразие $\Spin_9/P_4$ расщепимо над общей точкой.
+Мотив ${}_{\xi}(\mathsf{F}_4/P_4)$ выглядит так:
+\[
+\begin{tikzpicture}[scale=1.0,thin,font=\scriptsize]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\coordinate (5) at ($\sm*(5.2, 1)$);
+\coordinate (6) at ($\sm*(6.6, 1)$);
+\coordinate (7) at ($\sm*(8.0, 1)$);
+\coordinate (8) at ($\sm*(9.4, 1)$);
+\coordinate (9) at ($\sm*(10.8, 1)$);
+\coordinate (10) at ($\sm*(12.2, 1)$);
+\coordinate (11) at ($\sm*(13.6, 1)$);
+\coordinate (12) at ($\sm*(15.0, 1)$);
+\coordinate (5x) at ($\sm*(5.2, -1)$);
+\coordinate (6x) at ($\sm*(6.6, -1)$);
+\coordinate (7x) at ($\sm*(8.0, -1)$);
+\coordinate (8x) at ($\sm*(9.4, -1)$);
+\coordinate (9x) at ($\sm*(10.8, -1)$);
+\coordinate (10x) at ($\sm*(12.2, -1)$);
+\coordinate (11x) at ($\sm*(13.6, -1)$);
+\coordinate (12x) at ($\sm*(15.0, -1)$);
+\coordinate (13) at ($\sm*(16.0, 0)$);
+\coordinate (14) at ($\sm*(17.4, 0)$);
+\coordinate (15) at ($\sm*(18.8, 0)$);
+\coordinate (16) at ($\sm*(20.2, 0)$);
+\node at ($\sm*(0, -2)$) {$0$};
+\node at ($\sm*(1.4, -2)$) {$1$};
+\node at ($\sm*(2.8, -2)$) {$2$};
+\node at ($\sm*(4.2, -2)$) {$3$};
+\node at ($\sm*(5.2, -2)$) {$4$};
+\node at ($\sm*(6.6, -2)$) {$5$};
+\node at ($\sm*(8.0, -2)$) {$6$};
+\node at ($\sm*(9.4, -2)$) {$7$};
+\node at ($\sm*(10.8, -2)$) {$8$};
+\node at ($\sm*(12.2, -2)$) {$9$};
+\node at ($\sm*(13.6, -2)$) {$10$};
+\node at ($\sm*(15.0, -2)$) {$11$};
+\node at ($\sm*(16.0, -2)$) {$12$};
+\node at ($\sm*(17.4, -2)$) {$13$};
+\node at ($\sm*(18.8, -2)$) {$14$};
+\node at ($\sm*(20.2, -2)$) {$15$};
+\draw (1)--(2)--(3)--(4)--(5)--(6)--(7)--(8)--(9)--(10)--(11)--(12)--(13)--(14)--(15)--(16);
+\draw (4)--(5x)--(6x)--(7x)--(8x)--(9x)--(10x)--(11x)--(12x)--(13);
+\draw[dashed] (1) edge[bend left=45](16);
+\draw[dotted] (2) edge[bend left=45](5);
+\draw[dotted] (3) edge[bend left=45](6);
+\draw[dotted] (4) edge[bend right=35](7);
+\draw[dotted] (8) edge[bend left=45](11);
+\draw[dotted] (9) edge[bend left=45](12);
+\draw[dotted] (10) edge[bend right=35](13);
+\draw[dotted] (5x) edge[bend right=45](8x);
+\draw[dotted] (6x) edge[bend right=45](9x);
+\draw[dotted] (7x) edge[bend left=45](10x);
+\draw[dotted] (11x) edge[bend right=45](14);
+\draw[dotted] (12x) edge[bend right=45](15);
+\foreach \point in
+{1,2,3,4,5,6,7,8,9,10,11,12,5x,6x,7x,8x,9x,10x,11x,12x,13,14,15,16}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\end{tikzpicture}
+\]
+Предположим, что у ${}_{\xi}(\mathsf{F}_4/P_4)$ есть точка
+над $F'$, где $F'/F$~--- расширение нечетной степени.
+Верно ли, что у него есть точка над $F$?
+Если есть два проективных гладких многообразия $Y_1,Y_2$,
+которые бирационально эквивалентны, то
+$Y_1(F)\neq\varnothing$ тогда и только тогда,
+когда $Y_2(F)\neq\varnothing$.
+Теперь из ${}_{\xi}(\mathsf{F}_4/P_4)(F')\neq\varnothing$
+следует, что $Q(F')\neq\varnothing$,
+и по теореме Спрингера $Q(F)\neq\varnothing$,
+откуда ${}_{\xi}(\mathsf{F}_4/P_4)(F)\neq\varnothing$.
+
+Мы получили картинку
+$$
+\begin{tikzcd}
+\Bl_{\Spin_9/P_1}({}_{\xi}(\mathsf{F}_4/P_4)) \arrow{r}{\isom}\arrow{d}
+& \Bl_{\Spin_9/P_4}Q\arrow{d} \\
+{}_{\xi}(\mathsf{F}_4/P_4) & Q
+\end{tikzcd}
+$$
 
 \end{document}
 
