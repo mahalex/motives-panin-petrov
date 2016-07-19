@@ -19,6 +19,9 @@
 \usetikzlibrary{cd}
 \usetikzlibrary{calc}
 \usetikzlibrary{through}
+\usetikzlibrary{tikzmark}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing}
 
 \DeclareFontFamily{OT1}{pzc}{}
 \DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.1] pzcmi7t}{}
@@ -65,6 +68,7 @@
 \DeclareMathOperator{\Trd}{Trd}
 \DeclareMathOperator{\sing}{sing}
 \DeclareMathOperator{\Bl}{Bl}
+\DeclareMathOperator{\Frac}{Frac}
 
 %\DeclareFontFamily{OT1}{pzc}{}
 %\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.2] pzcmi7t}{}
@@ -3767,13 +3771,626 @@ $Y_1(F)\neq\varnothing$ тогда и только тогда,
 откуда ${}_{\xi}(\mathsf{F}_4/P_4)(F)\neq\varnothing$.
 
 Мы получили картинку
-$$
+\[
 \begin{tikzcd}
 \Bl_{\Spin_9/P_1}({}_{\xi}(\mathsf{F}_4/P_4)) \arrow{r}{\isom}\arrow{d}
 & \Bl_{\Spin_9/P_4}Q\arrow{d} \\
 {}_{\xi}(\mathsf{F}_4/P_4) & Q
 \end{tikzcd}
-$$
+\]
+
+% 23.04.2012
+
+\subsection{Многообразия, клеточные над общей точкой}
+
+Вернемся к общей ситуации: по коциклу $\xi\in H^1(F,G)$, где
+$G$~--- расщепимая группа, и простому числу $p$ мы построили
+набор чисел $J_p(\xi) = (j_1,\dots,j_r)$.
+Теорема Зайнуллина--Петрова--Семенова~\ref{thm:ZPS} утверждает,
+что если $X$~--- ${}_{\xi}G$-однородное многообразие, клеточное
+над $F(X)$, то $M(X)\otimes\mathbb{Z}/p = \bigoplus R_p(G)\{\dots\}$,
+и
+\[
+P(R_p(G),t) = \prod\frac{1-t^{p^{j_i}d_i}}{1-t^{d_i}}.
+\]
+\begin{remark}
+При помощи знания $J_p(\xi)$ для всех $p$ можно описать все такие $X$.
+\end{remark}
+Выше мы встречали точную последовательность вида
+\[
+\CH^*(BB) \to \CH^*(G/B) \to CH^*(G) \to 0.
+\]
+Пусть $X = {}_{\xi}(G/P)$.
+Попробуем нарисовать аналогичную последовательность для $P$:
+\[
+\begin{tikzcd}
+\CH^*(BP) \arrow{d} \\
+\CH^*(G/P) \arrow{r} & \CH^*(G)\arrow{r} & \CH^*(P)\arrow{r} & 0
+\end{tikzcd}
+\]
+Нижняя строка этой диаграммы является точною последовательностью
+градуированных колец.
+Однако, точность всей последовательности в члене $\CH^*(G/P)$
+неизвестна.
+При этом $\CH^*(P) \isom \CH^*(L)$ (поскольку $P/U\isom L$,
+а $U$ аффинно).
+Более того, мы утверждаем, что $\CH^*(L) \isom \CH^*([L,L])$.
+Почему это так?
+Рассмотрим коммутативную диаграмму
+\[
+\begin{tikzcd}
+\CH^*(BB_L) \arrow{r}\arrow{d}
+& \CH^*(L/B) \arrow{r}\arrow{d}{\isom}
+& \CH^*(L) \arrow{d}\arrow{r}
+& 0 \\
+\CH^*(BB_{[L,L]}) \arrow{r}
+& \CH^*(L/B) \arrow{r}
+& \CH^*([L,L]) \arrow{r}
+& 0
+\end{tikzcd}
+\]
+Здесь $B_L$ обозначает борелевскую подгруппу в $L$, а
+$B_{[L,L]}$~--- борелевскую в $[L,L]$.
+Левая вертикальная стрелка не обязана быть изоморфизмом,
+однако образы $\CH^*(BB_L)$ и $\CH^*(BB_{[L,L]})$ в
+$\CH^*(L/B)$ совпадают.
+Это утверждение достаточно проверить на $\CH^1$.
+
+Обозначим $H = [L,L]$.
+Мы получили точную последовательность
+\[
+\CH^*(G/P)/p \to \CH^*(G)/p \xrightarrow{\ph} \CH^*(H)/p \to 0.
+\]
+Нам известно, что
+$\CH^*(G)/p = (\mathbb{Z}/p)[x_1,\dots,x_r]/(x_i)^{p^{k_i}}$
+и
+$\CH^*(H)/p = (\mathbb{Z}/p)[y_1,\dots,y_s]/(y_j)^{p^{l_j}}$.
+
+Оказывается, есть отображение $\sigma\colon\{1,\dots,s\}\to\{1,\dots,r\}$
+такое, что
+\[
+\ph(x_{\sigma(m)}) = c\cdot y_m + \mbox{члены меньшего порядка},
+\]
+где $c\in (\mathbb{Z}/p)^*$~--- некоторая константа.
+
+\begin{theorem}\label{thm:cellularity}
+Пусть $G$~--- простая расщепимая группа,
+$\xi\in H^1(F,G)$, $X = {}_{\xi}(G/P)$, $Y = {}_{\xi}(G/B)$.
+Тогда следующие условия эквивалентны.
+\begin{enumerate}
+\item $X$~--- клеточное над общей точкой.
+\item Композиция отображений
+\[
+\CH^*({}_{\xi}(G/B)) \xrightarrow{\res} \CH^*(G/B) \to \CH^*(G) \to
+\CH^*(P)
+\]
+сюръективна.
+\item Для любого простого $p$ выполняются условия
+\begin{enumerate}
+\item $j_{\sigma(m)}(\xi) = 0$, если $m$ такое, что $\deg(y_m) > 1$;
+\item\label{item:thm-mod-p} композиция отображений
+\[
+\CH^1({}_{\xi}(G/B))/p \xrightarrow{\res} \CH^1(G/B)/p \to \CH^1(G)/p \to
+\CH^1(P)/p
+\]
+сюръективна.
+\end{enumerate}
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Пусть $\xi\in H^1(F,\mathsf{E}_7)$, $X = {}_{\xi}(\mathsf{E}_7/P_7)$.
+Когда $X$ расщепимо над общей точкой?
+\begin{itemize}
+\item $p=2$. В этом случае
+\[
+\begin{tikzpicture}[remember picture]
+\node (a1) {$\CH^*(\mathsf{E}_7)/2 = (\underset{\deg:}{\mathbb{Z}/2})
+[\underset{1}{x_1}, \subnode{x1}{$\underset{3}{x_2}$}, \underset{5}{x_3},
+\underset{9}{x_4}]/(\dots)$};
+\node (b1) [below=of a1] {$\CH^*(\mathsf{E}_6)/2 =
+(\underset{\deg:}{\mathbb{Z}/2})[\subnode{y1}{$\underset{3}{y_1}$}]/(y_1^2)$};
+\draw[|->] (x1.south) -- (y1.north);
+\end{tikzpicture}
+\]
+Условие~(\ref{item:thm-mod-p}) теоремы~\ref{thm:cellularity}
+превращается в $j_2 = 0$.
+Элементы $x_3$, $x_4$ получаются операцией Стинрода, и потому
+$j_3 = j_4 = 0$ автоматически.
+\item $p=3$. В этом случае
+\end{itemize}
+\[
+\begin{tikzpicture}[remember picture]
+\node (a2) {$\CH^*(\mathsf{E}_7)/3 = (\underset{\deg:}{\mathbb{Z}/3})
+[\subnode{x2}{$\underset{4}{x_1}$}]/(x_1^3)$};
+\node (b2) [below=of a2] {$\CH^*(\mathsf{E}_6)/3 =
+(\underset{\deg:}{\mathbb{Z}/3})[\subnode{y2}{$\underset{4}{y_1}$}]/(y_1^3)$};
+\draw[|->] (x2.south) -- (y2.north);
+\end{tikzpicture}
+\]
+Условие состоит в том, что $j_1=0$; и тогда весь $j$-инвариант для модуля $3$
+равен нулю.
+\end{example}
+Задача: посчитать $j_2$ для компактной формы $\mathsf{E}_7$ над $\mathbb{R}$.
+Эквивалентно:
+\begin{equation}\label{eqn:condition-e7}
+\begin{array}{p{0.8\textwidth}}
+верно ли, что над полем $\mathbb{R}(\SB(\mathbb{H}))$
+(которое изоморфно $\Frac(\mathbb{R}[x,y]/(x^2+y^2-1))$)
+компактная форма $\mathsf{E}_7$ расщепляется?
+\end{array}
+\end{equation}
+Еще одна эквивалентная формулировка: пусть $R_2(\xi)$~--- мотив Роста,
+отвечающий кватернионам.
+Сравним ${}_{\xi}(\mathsf{E}_7/P_7)$ и $\SB(\mathbb{H})$.
+Над $F({}_{\xi}(\mathsf{E}_7/P_7))$ алгебра Титса ($\mathbb{H}$)
+тривиальна, и потому $\SB(\mathbb{H})$ приобретает рациональную точку.
+Если условие~\ref{eqn:condition-e7} выполняется, то верно и обратное:
+над $F(\SB(\mathbb{H}))$ многообразие ${}_{\xi}(\mathsf{E}_7/P_7)$
+имеет рациональную точку. Почему это так?
+\begin{theorem}
+Пусть $X,Y$~--- проективные однородные многообразия (возможно,
+относительно разных групп), $p$~--- простое число.
+Предположим, что $X_{F(Y)}$ и $Y_{F(X)}$ имеют рациональные точки.
+Тогда $M(X)\otimes(\mathbb{Z}/p)$ и $M(Y)\otimes(\mathbb{Z}/p)$
+имеют общее слагаемое, <<задевающее>> точку
+(то есть, $q\in\CH^{\dim X}(X\times X)$~--- проектор,
+и $\im(q)$ над замыканием содержит $\pt\in\CH^{\dim X}(X)$).
+\end{theorem}
+
+\begin{proposition}
+Если есть изотропная ${}_{\xi}G$, и анизотропное ядро типа $H$,
+то $\xi$ приходит из $\zeta\in H^1(F,H)$.
+Тогда $J_p(\xi)$ выражается через $J_p(\zeta)$:
+\[
+j_i(\xi) = \begin{cases} j_m(\zeta), & \text{если $i=\sigma(m)$
+для некоторого $m$};\\
+0, & \text{иначе}.
+\end{cases}
+\]
+Поэтому имеет смысл считать $J_p(\xi)$ только для анизотропных
+групп (то есть, над $\mathbb{R}$~--- только для компактных форм).
+\end{proposition}
+\begin{itemize}
+\item $\mathsf{G}_2$, $\mathsf{F}_4$:
+$(\underset{\deg:}{\mathbb{Z}/2})[\underset{3}{x_1}]/(x_1^2)$,
+$J_2(\xi) = (1)$~--- а не $0$, ибо у $\mathbb{R}$ нет расширений нечетной
+степени. При этом $R_2(\xi)$~--- мотив Роста $\lAngle -1,-1,-1\rAngle$.
+\item $\mathsf{E}_6$: компактная форма есть, но она внешняя.
+\item $\mathsf{E}_7$: $(\underset{\deg:}{\mathbb{Z}/2})
+[\underset{1}{x_1}, \underset{3}{x_2}, \underset{5}{x_3}, \underset{9}{x_4}]$.
+\end{itemize}
+\begin{proposition}\label{prop:j-inv-for-e7}
+В этом случае $J_2(\xi) = (1, 0, 0, 0)$, $R_2(\xi)$~--- это мотив Роста
+квадрики $\lAngle -1, -1\rAngle$.
+\end{proposition}
+Для доказательства этого утверждения нужен \term{инвариант Роста}.
+
+\subsection{Инвариант Роста}
+Пусть $G$~--- простая, односвязная, но не обязательно расщепимая группа.
+Тогда есть инвариант
+\[
+r\colon H^1(F,G) \to H^3(F, (\mathbb{Q}/\mathbb{Z})(2))
+= \varinjlim_{N} H^3(F, \mu_N^{\otimes 2}),
+\]
+который порождает всю абелеву группу таких инвариантов.
+Вместо предела в правой части можно взять одно достаточно большое $N$.
+Заметим, что $r(\xi)$ всегда лежит в кручении.
+Посмотрим на наименьшее $N_G$ такое, что всегда $N_G\cdot r(\xi) = 0$
+(для всех расширений $E/F$ и для всех $\xi$).
+Тогда $N_G$ зависит только от типа $G$.
+А именно, для исключительных групп
+$N_{\mathsf{G}_2} = 2$, $N_{\mathsf{F}_4} = N_{\mathsf{E}_6} = 6$,
+$N_{\mathsf{E}_7} = 12$, $N_{\mathsf{E}_8} = 60$.
+Для $\mathsf{G}_2$ мы это видели:
+$\mathsf{G}_2 = \Aut(\mathbb{O})$, и $\mathbb{O}$ определяется формой
+$\lAngle a, b, c\rAngle \in H^3(F,\mathbb{Z}/2)$.
+Для $\mathsf{F}_4$, $\mathsf{E}_6$: $f_3 = 3r\in H^3(F, \mathbb{Z}/2)$,
+$g_3 = 2r \in H^3(F,\mathbb{Z}/3)$, где
+$r\in H^3(F,\mathbb{Z}/6)$.
+
+\begin{exercise}[Исследовательская задача]
+Придумать формулу для $r\colon H^1(F,G) \to H^3(f, \mathbb{Z}/4)$,
+где $G$~--- односвязная группа типа $\mathsf{D}_6$
+с индексом Титса
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(1.4, 0)$);
+\coordinate (3) at ($\sm*(2.8, 0)$);
+\coordinate (4) at ($\sm*(4.2, 0)$);
+\coordinate (5) at ($\sm*(5.2, 1)$);
+\coordinate (6) at ($\sm*(5.2, -1)$);
+\draw (1)--(2)--(3)--(4)--(5);
+\draw (4)--(6);
+\foreach \point in
+{1,2,3,4,5,6}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{2,4,5}
+  {
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+\]
+Такая группа задается кватернионами.
+\end{exercise}
+\begin{theorem}[Черноусов--Гарибальди]
+Если $G$~--- расщепимая группа типа $\mathsf{G}_2$, $\mathsf{F}_4$,
+$\mathsf{E}_6$ или $\mathsf{E}_7$, то ядро инварианта Роста тривиально.
+\end{theorem}
+Пусть $\xi\in H^1(F,G)$.
+Хотим узнать, тривиален ли $\xi$.
+Теорема Черноусова--Гарибальди говорит, что (оказывается!)
+достаточно посчитать $r(\xi)$.
+Для $\mathsf{E}_8$ это неверно: можно взять
+$\xi\in H^1(\mathbb{R},\mathsf{E}_8)$, задающий компактную форму.
+
+Воспользуемся этой теоремой для доказательства
+утверждения~\ref{prop:j-inv-for-e7}.
+Достаточно доказать, что $\xi_{F(SB(\mathbb{H}))} = *$.
+Действительно, если это так, то ${}_{\xi}(\mathsf{E}_7/B)$
+и $\SB(\mathbb{H})$ имеют рациональные точки над полями функций
+друг друга.
+Тогда у них есть общее мотивное слагаемое
+$R_2(\xi) = R_2(\lAngle -1, -1\rAngle)$, и потому $J_2(\xi) = (1,0,0,0)$
+из формулы для полинома Пуанкаре.
+
+Мы должны представить $\xi$ как элемент $H^1(F,G')$,
+где $G'$ односвязна.
+Расщепимая $G'$ не подойдет: $\xi$ приходит из
+$H^1(F, \mathsf{E}_7^{\operatorname{ad}})$,
+но не из $H^1(F, \mathsf{E}_7^{\operatorname{sc}})$
+(поскольку алгебра Титса нетривиальна).
+Возьмем в качестве $G'$ группу с индексом Титса
+\[
+\begin{tikzpicture}[scale=1.0,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\draw (1)--(3)--(4)--(5)--(6)--(7);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6,7}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{1,3,4,6}
+  {
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+\]
+Тогда $\xi\in H^1(F,G')$.
+Что можно сказать про $r(\xi)$?
+Мы знаем, что $\xi$ расщепим над $\mathbb{C}$, и потому
+$2r(\xi) = 0$.
+Стало быть, $r(\xi) \in H^3(\mathbb{R}, \mathbb{Z}/2)$.
+Значит, это либо $0$, либо $\lAngle -1, -1, -1\rAngle$.
+
+Переходим на $F(\SB(\mathbb{H}))$.
+Тогда $r(\xi)$ в любом случае становится $0$,
+а $G'_{F(\SB(\mathbb{H}))}$ расщепима.
+Поэтому можно применить теорему Черноусова--Гарибальди,
+и заключить, что $\xi_{F(\SB(\mathbb{H}))} = *$,
+чего мы и добивались.
+
+Посмотрим теперь на компактную форму группы типа $\mathsf{E}_8$.
+Мы знаем, что
+\[
+\CH^*(\mathsf{E}_8)/2 = (\underset{\deg:}{\mathbb{Z}/2})
+[\underset{3}{x_1},\underset{5}{x_2},\underset{9}{x_3},\underset{15}{x_4}]
+/(\dots).
+\]
+Инвариант Роста равен нулю; $j_1=0$, и потому $j_2 = j_3 = 0$.
+Получаем, что $J_2(\xi) = (0, 0, 0, 1)$.
+Отсюда следует, что $P(R_2(\xi), t) = 1 + t^{15}$
+и $R_2(\xi) = R_2(\lAngle -1, -1, -1, -1, -1\rAngle)$.
+
+Мораль: над $\mathbb{R}$ мотивы однородных проективных многообразий
+(расщепимых над общей точкой) раскладываются в мотивы Роста
+от пфистеровых форм с каким-то количеством $-1$;
+количество зависит от типа группы.
+
+Пусть $\xi\in H^1(F, G)$, где $G$~--- расщепимая группа типа $\mathsf{E}_6$.
+Свяжем $J$-инвариант с индексом Титса.
+Например, $J_3(\xi)$ определяется индексом Титса над ко-$3$-замыканием
+поля $F$.
+
+Что это значит?
+Посмотрим на абсолютную группу Галуа $\operatorname{Gal}(\ol{F}/F)$
+и возьмем в ней $3$-силовскую подгруппу.
+Ей соответствует расширение $E/F$, которое называется
+\term{ко-$3$-замыканием $F$}.
+Неформально говоря, мы игнорируем расширения степеней, не делящихся на $3$.
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$J_3(\mathsf{E}_6^{\operatorname{ad}})$ & $(0,0)$ & $(1,0)$ & $(0,1)$ & $(1,1)$ & $(2,1)$ \\
+\hline
+индекс Титса &
+\begin{tikzpicture}[scale=0.5,thin]\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\draw (1)--(3)--(4)--(5)--(6);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{1,2,3,4,5,6}
+  {
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=0.5,thin]\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\draw (1)--(3)--(4)--(5)--(6);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{2,4}
+  {
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+& \multicolumn{3}{|c|}{
+  \begin{tikzpicture}[scale=0.5,thin]\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\draw (1)--(3)--(4)--(5)--(6);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\end{tikzpicture}
+}\\
+\hline
+индекс алгебры Титса & $1$ & $3$ & $1$ & $3$ & $9$ или $27$\\
+\hline
+\end{tabular}
+
+Приведем аналогичную таблицу для $J_2(\mathsf{E}_7^{\operatorname{sc}})$:
+
+\begin{tabular}{|p{2.9cm}|p{2.5cm}|p{2.6cm}|p{2.9cm}|p{2.5cm}|}
+\hline
+\begin{center} $J_2(\mathsf{E}_7^{\operatorname{sc}})$ \end{center}
+& \begin{center} $(0,0,0)$ \end{center}
+& \begin{center} $(1,0,0)$ \end{center}
+& \begin{center} $(1,1,0)$ \end{center}
+& \begin{center} $(1,1,1)$ \end{center} \\
+\hline
+\begin{center}индекс Титса
+над ко-$2$-замыканием\end{center} &
+\begin{tikzpicture}[scale=0.5,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\draw (1)--(3)--(4)--(5)--(6)--(7);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6,7}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{1,2,3,4,5,6,7}
+  {
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=0.5,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\draw (1)--(3)--(4)--(5)--(6)--(7);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6,7}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{1,6,7}
+  {
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=0.5,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\draw (1)--(3)--(4)--(5)--(6)--(7);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6,7}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{1}
+  {
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=0.5,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\draw (1)--(3)--(4)--(5)--(6)--(7);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6,7}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\end{tikzpicture}
+\\
+\hline
+\begin{center}$r(\xi)$\end{center}
+& \begin{center}$0$\end{center}
+& \begin{center}чистый символ $\neq 0$ из $H^3(F,\mathbb{Z}/2)$:
+$\lAngle a,b,c\rAngle$\end{center}
+& \begin{center}сумма двух символов из $H^3(F,\mathbb{Z}/2)$
+с общим слотом: $\lAngle a,b,c\rAngle + \lAngle a,d,e\rAngle$\end{center}
+& \begin{center}иначе\end{center} \\
+\hline
+\end{tabular}
+
+Случаи $\mathsf{E}_6\pmod{2}$, $\mathsf{E}_7\pmod{3}$~--- легкие упражнения.
+Случаи $\mathsf{E}_8\pmod{2}$, $\mathsf{E}_7^{\operatorname{ad}}\pmod{2}$~---
+исследовательское упражнение.
+Случай $\mathsf{E}_8\pmod{5}$~--- легкое упражнение.
+Вот ответ для $\mathsf{E}_8\pmod{3}$:
+
+\begin{tabular}{|p{2.9cm}|p{3.0cm}|p{3.0cm}|p{3.0cm}|}
+\hline
+\begin{center} $J_3(\mathsf{E}_8)$ \end{center}
+& \begin{center} $(0,0)$ \end{center}
+& \begin{center} $(1,0)$ \end{center}
+& \begin{center} $(1,1)$ \end{center} \\
+\hline
+\begin{center}индекс Титса\end{center}
+&
+\begin{tikzpicture}[scale=0.5,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\coordinate (8) at ($\sm*(8.4, 0)$);
+\draw (1)--(3)--(4)--(5)--(6)--(7)--(8);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6,7,8}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{1,2,3,4,5,6,7,8}
+  {
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=0.5,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\coordinate (8) at ($\sm*(8.4, 0)$);
+\draw (1)--(3)--(4)--(5)--(6)--(7)--(8);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6,7,8}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\foreach \point in
+{7,8}
+  {
+     \draw [black] (\point) circle (5.0pt);
+  }
+\end{tikzpicture}
+&
+\begin{tikzpicture}[scale=0.5,thin]
+\def\sm{0.7}
+\coordinate (1) at ($\sm*(0, 0)$);
+\coordinate (2) at ($\sm*(2.8, -1.4)$);
+\coordinate (3) at ($\sm*(1.4, 0)$);
+\coordinate (4) at ($\sm*(2.8, 0)$);
+\coordinate (5) at ($\sm*(4.2, 0)$);
+\coordinate (6) at ($\sm*(5.6, 0)$);
+\coordinate (7) at ($\sm*(7.0, 0)$);
+\coordinate (8) at ($\sm*(8.4, 0)$);
+\draw (1)--(3)--(4)--(5)--(6)--(7)--(8);
+\draw (2)--(4);
+\foreach \point in
+{1,2,3,4,5,6,7,8}
+  {
+     \fill [white] (\point) circle (2.0pt);
+     \draw [black] (\point) circle (2.0pt);
+  }
+\end{tikzpicture}
+\\
+\hline
+\begin{center} $r(\xi)$ \end{center}
+& \begin{center} $0$ \end{center}
+& \begin{center} чистый символ $\neq 0$ из $H^3(F,\mathbb{Z}/3)$\end{center}
+& \begin{center} иначе \end{center} \\
+\hline
+\end{tabular}
 
 \end{document}
 
